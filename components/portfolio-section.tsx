@@ -15,7 +15,7 @@ const portfolioItems = [
     category: "Captura Aérea",
     description:
       "Operación con drone DJI equipado para captura de datos topográficos desde el aire, permitiendo acceso a zonas difíciles.",
-    image: "/images/feature-drone.jpg",
+    image: "/images/imagen-dron-nueva.JPG",
     tech: ["DJI Enterprise", "Fotogrametría", "Nube de Puntos"],
   },
   {
@@ -33,7 +33,7 @@ const portfolioItems = [
     category: "Topografía",
     description:
       "Trabajo de campo en entornos desafiantes, garantizando mediciones exactas sin importar las condiciones del terreno.",
-    image: "/images/gallery-field.jpg",
+    image: "/images/terreno-agreste.JPG",
     tech: ["Estación Total", "Geodesia", "Control Terrestre"],
   },
   {
@@ -57,7 +57,7 @@ const portfolioItems = [
     title: "Escaneo de Estructuras",
     category: "Escaneo 3D",
     description: "Captura de nubes de puntos de alta precisión para ingeniería inversa y análisis estructural.",
-    image: "/images/gallery-arch.jpg",
+    image: "/images/escaneo-de-estructuras.JPG",
     tech: ["LiDAR", "Nube de Puntos", "Ingeniería"],
   },
 ]
@@ -148,7 +148,7 @@ export function PortfolioSection() {
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={`${item.id === 1 ? 'object-contain' : 'object-cover'} transition-transform duration-500 group-hover:scale-110`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 

@@ -10,7 +10,7 @@ const TechnologySection = dynamic(() => import("@/components/technology-section"
 const ClientsSection = dynamic(() => import("@/components/clients-section").then(mod => mod.ClientsSection), { ssr: true })
 const ContactSection = dynamic(() => import("@/components/contact-section").then(mod => mod.ContactSection), { ssr: true })
 const Footer = dynamic(() => import("@/components/footer").then(mod => mod.Footer), { ssr: true })
-const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(mod => mod.WhatsAppButton), { ssr: false })
+const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(mod => mod.WhatsAppButton))
 
 export default function HomePage() {
   return (

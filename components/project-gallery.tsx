@@ -1,36 +1,37 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const galleryImages = [
     {
-        src: "/images/equipo-atardecer.jpg",
-        alt: "Equipo de trabajo al atardecer en campo",
+        src: "/images/portfolio-landscape.jpg",
+        alt: "Vista panorámica de proyecto topográfico en campo",
     },
     {
-        src: "/images/nopales-fondo.jpg",
-        alt: "Paisaje natural con vegetación local",
+        src: "/images/carrusel-1.JPG",
+        alt: "Proyecto de topografía y medición en campo",
     },
     {
-        src: "/images/trabajo-campo.jpg",
-        alt: "Ingenieros realizando mediciones en terreno",
+        src: "/images/carrusel-2.JPG",
+        alt: "Equipo de trabajo en levantamiento topográfico",
     },
     {
-        src: "/images/dron-detalle.jpg",
-        alt: "Detalle técnico de drone profesional de topografía",
-    },
-    {
-        src: "/images/gallery-field.jpg",
-        alt: "Vista panorámica de levantamiento topográfico",
+        src: "/images/carrusel-3.JPG",
+        alt: "Captura de datos geoespaciales con tecnología avanzada",
     },
 ]
 
 export function ProjectGallery() {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const containerRef = useRef<HTMLDivElement>(null)
 
     const nextSlide = () => {
         setCurrentIndex((prev) => (prev + 1) % galleryImages.length)
@@ -40,32 +41,84 @@ export function ProjectGallery() {
         setCurrentIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
     }
 
-    // Optional: Auto-play
+    // Auto-play
     useEffect(() => {
         const timer = setInterval(() => {
             nextSlide()
         }, 5000)
         return () => clearInterval(timer)
+    }, [currentIndex])
+
+    // GSAP Animation
+    useEffect(() => {
+        const initGSAP = () => {
+            const ctx = gsap.context(() => {
+                gsap.fromTo(
+                    ".gravity-gallery",
+                    {
+                        y: -150,
+                        opacity: 0,
+                        scale: 0.8,
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        duration: 1.2,
+                        ease: "bounce.out",
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start: "top 80%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                )
+            }, containerRef)
+            return ctx
+        }
+
+        let ctx: gsap.Context
+        if (document.readyState === "complete") {
+            ctx = initGSAP()
+        } else {
+            const handleLoad = () => {
+                ctx = initGSAP()
+            }
+            window.addEventListener("load", handleLoad)
+            return () => {
+                window.removeEventListener("load", handleLoad)
+                if (ctx) ctx.revert()
+            }
+        }
+
+        return () => {
+            if (ctx) ctx.revert()
+        }
     }, [])
 
     return (
-        <section className="py-20 bg-background relative overflow-hidden rounded-[32px]">
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="container mx-auto px-4 opacity-0"
-            >
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Galería de Proyectos</h2>
-                    <p className="text-muted-foreground text-lg">
+        <section className="py-24 bg-card rounded-[32px] relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-800/50" />
+
+            <div className="container px-4 md:px-6 relative" ref={containerRef}>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center max-w-3xl mx-auto mb-16 opacity-0"
+                >
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                        Galería de Proyectos
+                    </h2>
+                    <p className="text-muted-foreground text-lg md:text-xl">
                         Nuestra experiencia en campo capturada en imágenes.
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
-                    <div className="relative h-[400px] md:h-[500px] w-full bg-muted">
+                <div className="gravity-gallery max-w-5xl mx-auto">
+                    <div className="relative h-[400px] md:h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl border border-primary/10 bg-card/50 backdrop-blur-sm">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentIndex}
@@ -82,8 +135,7 @@ export function ProjectGallery() {
                                     sizes="(max-width: 1024px) 100vw, 1024px"
                                     className="object-cover"
                                 />
-                                {/* Overlay for better arrow visibility if needed */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                             </motion.div>
                         </AnimatePresence>
 
@@ -93,7 +145,7 @@ export function ProjectGallery() {
                                 variant="outline"
                                 size="icon"
                                 onClick={prevSlide}
-                                className="pointer-events-auto h-12 w-12 rounded-full bg-background/20 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:text-white"
+                                className="pointer-events-auto h-12 w-12 rounded-full bg-primary/10 backdrop-blur-md border-primary/20 text-primary hover:bg-primary/20 hover:text-primary transition-all"
                             >
                                 <ChevronLeft className="h-6 w-6" />
                                 <span className="sr-only">Anterior</span>
@@ -102,7 +154,7 @@ export function ProjectGallery() {
                                 variant="outline"
                                 size="icon"
                                 onClick={nextSlide}
-                                className="pointer-events-auto h-12 w-12 rounded-full bg-background/20 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:text-white"
+                                className="pointer-events-auto h-12 w-12 rounded-full bg-primary/10 backdrop-blur-md border-primary/20 text-primary hover:bg-primary/20 hover:text-primary transition-all"
                             >
                                 <ChevronRight className="h-6 w-6" />
                                 <span className="sr-only">Siguiente</span>
@@ -115,7 +167,9 @@ export function ProjectGallery() {
                                 <button
                                     key={index}
                                     onClick={() => setCurrentIndex(index)}
-                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-white w-8" : "bg-white/50 hover:bg-white/80"
+                                    className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex
+                                        ? "bg-primary w-8"
+                                        : "bg-primary/50 hover:bg-primary/80 w-2.5"
                                         }`}
                                     aria-label={`Ir a la imagen ${index + 1}`}
                                 />
@@ -123,7 +177,7 @@ export function ProjectGallery() {
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </section>
     )
 }
