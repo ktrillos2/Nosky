@@ -1,15 +1,16 @@
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
-import { VideoSection } from "@/components/video-section"
-import { ServicesSection } from "@/components/services-section"
-import { ProjectGallery } from "@/components/project-gallery"
-import { PortfolioSection } from "@/components/portfolio-section"
-import { TechnologySection } from "@/components/technology-section"
-import { ClientsSection } from "@/components/clients-section"
-import { ContactSection } from "@/components/contact-section"
-import { Footer } from "@/components/footer"
 
-import { WhatsAppButton } from "@/components/whatsapp-button"
+const VideoSection = dynamic(() => import("@/components/video-section").then(mod => mod.VideoSection), { ssr: true })
+const ServicesSection = dynamic(() => import("@/components/services-section").then(mod => mod.ServicesSection), { ssr: true })
+const ProjectGallery = dynamic(() => import("@/components/project-gallery").then(mod => mod.ProjectGallery), { ssr: true })
+const PortfolioSection = dynamic(() => import("@/components/portfolio-section").then(mod => mod.PortfolioSection), { ssr: true })
+const TechnologySection = dynamic(() => import("@/components/technology-section").then(mod => mod.TechnologySection), { ssr: true })
+const ClientsSection = dynamic(() => import("@/components/clients-section").then(mod => mod.ClientsSection), { ssr: true })
+const ContactSection = dynamic(() => import("@/components/contact-section").then(mod => mod.ContactSection), { ssr: true })
+const Footer = dynamic(() => import("@/components/footer").then(mod => mod.Footer), { ssr: true })
+const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(mod => mod.WhatsAppButton), { ssr: false })
 
 export default function HomePage() {
   return (

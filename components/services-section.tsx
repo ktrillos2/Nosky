@@ -76,31 +76,50 @@ export function ServicesSection() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".gravity-card",
-        {
-          y: -150,
-          opacity: 0,
-          rotate: () => Math.random() * 10 - 5,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          rotate: 0,
-          duration: 1.2,
-          stagger: 0.2,
-          ease: "bounce.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
+    const initGSAP = () => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          ".gravity-card",
+          {
+            y: -150,
+            opacity: 0,
+            rotate: () => Math.random() * 10 - 5,
           },
-        }
-      )
-    }, containerRef)
+          {
+            y: 0,
+            opacity: 1,
+            rotate: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "bounce.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        )
+      }, containerRef)
+      return ctx
+    }
 
-    return () => ctx.revert()
+    let ctx: gsap.Context
+    if (document.readyState === "complete") {
+      ctx = initGSAP()
+    } else {
+      const handleLoad = () => {
+        ctx = initGSAP()
+      }
+      window.addEventListener("load", handleLoad)
+      return () => {
+        window.removeEventListener("load", handleLoad)
+        if (ctx) ctx.revert()
+      }
+    }
+
+    return () => {
+      if (ctx) ctx.revert()
+    }
   }, [])
 
   return (

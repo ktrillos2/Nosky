@@ -12,27 +12,46 @@ export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".gravity-hero",
-        {
-          y: -150,
-          opacity: 0,
-          rotate: () => Math.random() * 6 - 3,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          rotate: 0,
-          duration: 1.5,
-          stagger: 0.3,
-          ease: "bounce.out",
-          delay: 0.5,
-        }
-      )
-    }, containerRef)
+    const initGSAP = () => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          ".gravity-hero",
+          {
+            y: -150,
+            opacity: 0,
+            rotate: () => Math.random() * 6 - 3,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            rotate: 0,
+            duration: 1.5,
+            stagger: 0.3,
+            ease: "bounce.out",
+            delay: 0.5,
+          }
+        )
+      }, containerRef)
+      return ctx
+    }
 
-    return () => ctx.revert()
+    let ctx: gsap.Context
+    if (document.readyState === "complete") {
+      ctx = initGSAP()
+    } else {
+      const handleLoad = () => {
+        ctx = initGSAP()
+      }
+      window.addEventListener("load", handleLoad)
+      return () => {
+        window.removeEventListener("load", handleLoad)
+        if (ctx) ctx.revert()
+      }
+    }
+
+    return () => {
+      if (ctx) ctx.revert()
+    }
   }, [])
 
   return (
@@ -45,6 +64,7 @@ export function HeroSection() {
           fill
           className="object-cover object-center"
           priority
+          loading="eager"
           fetchPriority="high"
         />
         {/* Overlay gradients for readability */}
