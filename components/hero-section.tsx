@@ -1,16 +1,37 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
-import { ChevronDown, Radar } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 import gsap from "gsap"
 
+const heroImages = [
+  {
+    src: "/images/nopales-cielo.jpg",
+    alt: "Paisaje de nopales bajo un cielo claro",
+  },
+  {
+    src: "/images/carrusel-2.JPG",
+    alt: "Equipo de trabajo profesional",
+  },
+]
+
 export function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Auto-play slider
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % heroImages.length)
+    }, 6000) // Change every 6 seconds
+    return () => clearInterval(timer)
+  }, [])
+
+  // GSAP Animation
   useEffect(() => {
     const initGSAP = () => {
       const ctx = gsap.context(() => {
@@ -56,29 +77,55 @@ export function HeroSection() {
 
   return (
     <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden rounded-[32px]">
-      {/* Background Image */}
+      {/* Background Image Slider */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/nopales-cielo.jpg"
-          alt="Paisaje de nopales bajo un cielo claro"
-          fill
-          className="object-cover object-center"
-          priority
-          loading="eager"
-          fetchPriority="high"
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentIndex].src}
+              alt={heroImages[currentIndex].alt}
+              fill
+              className="object-cover object-center"
+              priority={currentIndex === 0}
+              loading={currentIndex === 0 ? "eager" : "lazy"}
+              fetchPriority={currentIndex === 0 ? "high" : "auto"}
+            />
+          </motion.div>
+        </AnimatePresence>
+
         {/* Overlay gradients for readability */}
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background/90" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background/90" />
       </div>
 
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 grid-pattern opacity-30 z-10" />
 
+      {/* Slider Indicators */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
+              ? "bg-primary w-8"
+              : "bg-white/50 hover:bg-white/80 w-1.5"
+              }`}
+            aria-label={`Ir a la imagen ${index + 1}`}
+          />
+        ))}
+      </div>
+
       {/* Content */}
       <div ref={containerRef} className="relative z-20 container mx-auto px-4 lg:px-8 pt-20">
         <div className="max-w-4xl mx-auto text-center">
-
 
           {/* Main Heading */}
           <h1
@@ -130,7 +177,7 @@ export function HeroSection() {
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
           className="flex flex-col items-center gap-2 text-muted-foreground"
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <span className="text-xs uppercase tracking-widest">Ver más</span>
           <ChevronDown className="w-5 h-5" />
         </motion.div>
       </motion.div>

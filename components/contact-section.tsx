@@ -40,53 +40,53 @@ export function ContactSection() {
             transition={{ duration: 0.8 }}
             className="opacity-0"
           >
-            <Card className="bg-card/50 border-border backdrop-blur-sm">
+            <Card className="bg-card/50 border-primary/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500">
               <CardHeader>
-                <CardTitle>Solicitar Cotización</CardTitle>
-                <CardDescription>Completa el formulario y nos pondremos en contacto contigo.</CardDescription>
+                <CardTitle className="text-2xl">Solicitar Cotización</CardTitle>
+                <CardDescription className="text-base">Completa el formulario y nos pondremos en contacto contigo.</CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
+                <form className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-medium text-foreground">
+                      <label htmlFor="name" className="text-sm font-semibold text-foreground">
                         Nombre
                       </label>
                       <Input
                         id="name"
                         placeholder="Tu nombre"
-                        className="bg-background/50 border-border focus:border-primary"
+                        className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 h-11"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="company" className="text-sm font-medium text-foreground">
+                      <label htmlFor="company" className="text-sm font-semibold text-foreground">
                         Empresa
                       </label>
                       <Input
                         id="company"
                         placeholder="Nombre de empresa"
-                        className="bg-background/50 border-border focus:border-primary"
+                        className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 h-11"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground">
+                    <label htmlFor="email" className="text-sm font-semibold text-foreground">
                       Correo electrónico
                     </label>
                     <Input
                       id="email"
                       type="email"
                       placeholder="tu@email.com"
-                      className="bg-background/50 border-border focus:border-primary"
+                      className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 h-11"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="service" className="text-sm font-medium text-foreground">
+                    <label htmlFor="service" className="text-sm font-semibold text-foreground">
                       Servicio de interés
                     </label>
                     <select
                       id="service"
-                      className="w-full h-10 px-3 rounded-md bg-background/50 border border-border text-foreground focus:border-primary focus:outline-none"
+                      className="w-full h-11 px-3 rounded-md bg-background/50 border border-border text-foreground focus:border-primary focus:ring-2 focus:ring-primary/50 focus:outline-none transition-all duration-300"
                     >
                       <option value="">Selecciona un servicio</option>
                       <option value="topografia">Topografía de Precisión</option>
@@ -97,19 +97,19 @@ export function ContactSection() {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground">
+                    <label htmlFor="message" className="text-sm font-semibold text-foreground">
                       Descripción del proyecto
                     </label>
                     <Textarea
                       id="message"
                       placeholder="Cuéntanos sobre tu proyecto, ubicación y requerimientos específicos..."
                       rows={4}
-                      className="bg-background/50 border-border focus:border-primary resize-none"
+                      className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 resize-none transition-all duration-300"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold glow-accent"
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold glow-accent shadow-lg hover:shadow-xl transition-all duration-300 h-12"
                   >
                     <Send className="w-4 h-4 mr-2" />
                     Enviar Solicitud
