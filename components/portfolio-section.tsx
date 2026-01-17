@@ -128,6 +128,7 @@ export function PortfolioSection() {
                   src={item.image}
                   alt={item.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
@@ -147,7 +148,7 @@ export function PortfolioSection() {
 
                 {/* Tech Tags */}
                 <div className="flex flex-wrap gap-2">
-                  {item.tech.slice(0, 3).map((tech) => (
+                  {item.tech?.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
                       className="text-[10px] uppercase tracking-wider text-muted-foreground/80"

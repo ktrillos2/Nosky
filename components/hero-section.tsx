@@ -45,6 +45,7 @@ export function HeroSection() {
           fill
           className="object-cover object-center"
           priority
+          fetchPriority="high"
         />
         {/* Overlay gradients for readability */}
         <div className="absolute inset-0 bg-black/20" />

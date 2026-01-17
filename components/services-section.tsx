@@ -6,6 +6,7 @@ import { Scan, Camera, Compass, Box, FileText, ArrowRight } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -138,10 +139,12 @@ export function ServicesSection() {
               <Card className="h-full hover:shadow-xl transition-all duration-500 border-primary/10 overflow-hidden flex flex-col hover:scale-[1.02] bg-card/50 backdrop-blur-sm">
                 {service.image && (
                   <div className="relative w-full h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
                   </div>
@@ -159,9 +162,9 @@ export function ServicesSection() {
                 </CardHeader>
                 <CardContent className="mt-auto">
                   <ul className="space-y-2">
-                    {service.features.map((feature) => (
+                    {service.features?.map((feature) => (
                       <li key={feature} className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <div className={`w-1.5 h-1.5 rounded-full ${service.colors.dot}`} />
+                        <div className={`w-1.5 h-1.5 rounded-full ${service.colors?.dot}`} />
                         {feature}
                       </li>
                     ))}

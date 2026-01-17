@@ -34,7 +34,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {/* Brand - Logo actualizado */}
           <div className="col-span-2 md:col-span-4 lg:col-span-2">
-            <Link href="#inicio" className="flex items-center gap-3 mb-4">
+            <Link href="#inicio" className="flex items-center gap-3 mb-4" aria-label="Ir al inicio">
               <Image
                 src="/images/logo-nosky-new.jpg"
                 alt="NOSKY - Captura, Digitalización y Documentación Aérea y Terrestre"

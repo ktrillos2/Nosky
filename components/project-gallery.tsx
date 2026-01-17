@@ -79,8 +79,8 @@ export function ProjectGallery() {
                                     src={galleryImages[currentIndex].src}
                                     alt={galleryImages[currentIndex].alt}
                                     fill
+                                    sizes="(max-width: 1024px) 100vw, 1024px"
                                     className="object-cover"
-                                    priority
                                 />
                                 {/* Overlay for better arrow visibility if needed */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />

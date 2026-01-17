@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_MX",
   },
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export const viewport: Viewport = {
@@ -46,6 +46,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark">
+      <head>
+        <link
+          rel="preload"
+          href="/images/nopales-cielo.jpg"
+          as="image"
+          fetchPriority="high"
+        />
+      </head>
       <body className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
         <Analytics />

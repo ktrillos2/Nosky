@@ -37,7 +37,7 @@ export function Navbar() {
     >
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="#inicio" className="flex items-center gap-3">
+          <Link href="#inicio" className="flex items-center gap-3" aria-label="Ir al inicio">
             <Image
               src="/images/logo-nosky-new.jpg"
               alt="NOSKY - Captura, Digitalización y Documentación Aérea y Terrestre"
