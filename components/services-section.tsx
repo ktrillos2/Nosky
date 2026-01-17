@@ -1,10 +1,15 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Scan, Camera, Compass, Box, FileText, ArrowRight } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const services = [
   {
@@ -67,6 +72,36 @@ const services = [
 ]
 
 export function ServicesSection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".gravity-card",
+        {
+          y: -150,
+          opacity: 0,
+          rotate: () => Math.random() * 10 - 5,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          rotate: 0,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: "bounce.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="servicios" className="py-24 bg-card rounded-[32px] relative overflow-hidden">
       {/* Background decoration */}
@@ -79,6 +114,7 @@ export function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="opacity-0"
           >
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
               Nuestras Soluciones
@@ -89,37 +125,14 @@ export function ServicesSection() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2,
-              },
-            },
-          }}
+        <div
+          ref={containerRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={service.title}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    type: "spring",
-                    stiffness: 50,
-                    damping: 20,
-                  },
-                },
-              }}
-              className={`group ${index === 1 || index === 2 ? "lg:col-span-2" : ""
+              className={`gravity-card group ${index === 1 || index === 2 ? "lg:col-span-2" : ""
                 } ${index === 4 ? "lg:col-span-3 md:col-span-2" : ""}`}
             >
               <Card className="h-full hover:shadow-xl transition-all duration-500 border-primary/10 overflow-hidden flex flex-col hover:scale-[1.02] bg-card/50 backdrop-blur-sm">
@@ -155,9 +168,9 @@ export function ServicesSection() {
                   </ul>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* CTA */}
         <motion.div
@@ -165,7 +178,7 @@ export function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
+          className="text-center mt-12 opacity-0"
         >
           <Button
             asChild

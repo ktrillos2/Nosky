@@ -29,21 +29,21 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-2xl border border-white/10 ${isScrolled ? "bg-black/80 backdrop-blur-md shadow-lg" : "bg-black/20 backdrop-blur-sm"
+      className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 border-b border-white/10 opacity-0 ${isScrolled ? "bg-black/90 backdrop-blur-md shadow-lg py-2" : "bg-black/40 backdrop-blur-sm py-4"
         }`}
     >
       <nav className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           <Link href="#inicio" className="flex items-center gap-3">
             <Image
               src="/images/logo-nosky-new.jpg"
               alt="NOSKY - Captura, Digitalización y Documentación Aérea y Terrestre"
               width={180}
               height={90}
-              className="h-20 w-auto"
+              className="h-14 w-auto"
             />
           </Link>
 

@@ -1,12 +1,40 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown, Radar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import gsap from "gsap"
 
 export function HeroSection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".gravity-hero",
+        {
+          y: -150,
+          opacity: 0,
+          rotate: () => Math.random() * 6 - 3,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          rotate: 0,
+          duration: 1.5,
+          stagger: 0.3,
+          ease: "bounce.out",
+          delay: 0.5,
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden rounded-[32px]">
       {/* Background Image */}
@@ -27,37 +55,28 @@ export function HeroSection() {
       <div className="absolute inset-0 grid-pattern opacity-30 z-10" />
 
       {/* Content */}
-      <div className="relative z-20 container mx-auto px-4 lg:px-8 pt-20">
+      <div ref={containerRef} className="relative z-20 container mx-auto px-4 lg:px-8 pt-20">
         <div className="max-w-4xl mx-auto text-center">
 
 
           {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance drop-shadow-2xl"
+          <h1
+            className="gravity-hero text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance drop-shadow-2xl opacity-0"
           >
             Captura, Digitalización y <span className="text-primary text-glow drop-shadow-md">Documentación</span> del Mundo Real
-          </motion.h1>
+          </h1>
 
           {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 text-pretty drop-shadow-md font-medium"
+          <p
+            className="gravity-hero text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 text-pretty drop-shadow-md font-medium opacity-0"
           >
             Transformamos espacios físicos en datos precisos mediante escaneo LiDAR, fotogrametría aérea y topografía de
             alta precisión. Soluciones integrales para ingeniería, arquitectura y construcción.
-          </motion.p>
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
+          <div
+            className="gravity-hero flex flex-col sm:flex-row gap-4 justify-center items-center mb-20 opacity-0"
           >
             <Button
               asChild
@@ -74,7 +93,7 @@ export function HeroSection() {
             >
               <Link href="#servicios">Explorar Servicios</Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
       </div>
 

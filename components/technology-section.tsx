@@ -1,7 +1,12 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Cpu, Plane, ScanLine, Box, Cloud, Settings } from "lucide-react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const technologies = [
   {
@@ -64,6 +69,36 @@ const itemVariants = {
 }
 
 export function TechnologySection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".gravity-tech",
+        {
+          y: -150,
+          opacity: 0,
+          scale: 0.8,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: "bounce.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="tecnologia" className="py-24 relative">
       <div className="absolute inset-0 grid-pattern opacity-15" />
@@ -75,7 +110,7 @@ export function TechnologySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 opacity-0"
         >
           <span className="text-primary font-mono text-sm uppercase tracking-widest">Tecnología</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6 text-balance">
@@ -88,18 +123,14 @@ export function TechnologySection() {
         </motion.div>
 
         {/* Technology Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+        <div
+          ref={containerRef}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
         >
           {technologies.map((category) => (
-            <motion.div
+            <div
               key={category.category}
-              variants={itemVariants}
-              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300"
+              className="gravity-tech bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300"
             >
               <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">{category.category}</h3>
               <ul className="space-y-3">
@@ -110,9 +141,9 @@ export function TechnologySection() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Certification Badges */}
         <motion.div
@@ -120,7 +151,7 @@ export function TechnologySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16 text-center"
+          className="mt-16 text-center opacity-0"
         >
           <p className="text-sm text-muted-foreground mb-6">Certificaciones y Autorizaciones</p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">

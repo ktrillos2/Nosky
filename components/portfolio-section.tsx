@@ -1,7 +1,12 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const portfolioItems = [
   {
@@ -58,6 +63,36 @@ const portfolioItems = [
 ]
 
 export function PortfolioSection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".gravity-portfolio",
+        {
+          y: -150,
+          opacity: 0,
+          rotate: () => Math.random() * 10 - 5,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          rotate: 0,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: "bounce.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="portafolio" className="py-24 bg-card/30 relative overflow-hidden rounded-[32px]">
       <div className="absolute inset-0 grid-pattern opacity-10" />
@@ -69,7 +104,7 @@ export function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 opacity-0"
         >
           <span className="text-primary font-mono text-sm uppercase tracking-widest">Portafolio</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6 text-balance">
@@ -81,15 +116,11 @@ export function PortfolioSection() {
         </motion.div>
 
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {portfolioItems.map((item, index) => (
-            <motion.div
+            <div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-xl border border-primary/10 bg-card/50 hover:shadow-xl transition-all duration-300"
+              className="gravity-portfolio group relative overflow-hidden rounded-xl border border-primary/10 bg-card/50 hover:shadow-xl transition-all duration-300"
             >
               {/* Image Container */}
               <div className="relative aspect-[4/3] overflow-hidden">
@@ -126,7 +157,7 @@ export function PortfolioSection() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

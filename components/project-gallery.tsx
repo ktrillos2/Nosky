@@ -55,7 +55,7 @@ export function ProjectGallery() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="container mx-auto px-4"
+                className="container mx-auto px-4 opacity-0"
             >
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Galería de Proyectos</h2>
@@ -73,7 +73,7 @@ export function ProjectGallery() {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.5 }}
-                                className="absolute inset-0"
+                                className="absolute inset-0 opacity-0"
                             >
                                 <Image
                                     src={galleryImages[currentIndex].src}

@@ -20,7 +20,7 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 opacity-0 animate-in fade-in fill-mode-forwards"
         >
           <span className="text-primary font-mono text-sm uppercase tracking-widest">Contacto</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
@@ -38,6 +38,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="opacity-0"
           >
             <Card className="bg-card/50 border-border backdrop-blur-sm">
               <CardHeader>
@@ -124,7 +125,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-center opacity-0"
           >
             <div className="space-y-8">
               {/* Contact Details */}
