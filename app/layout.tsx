@@ -47,17 +47,10 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark">
       <head>
-        {/* Prioridad Absoluta al Hero (LCP) */}
-        <link
-          rel="preload"
-          href="/images/nopales-cielo.jpg"
-          as="image"
-          fetchPriority="high"
-        />
-
         {/* Estilos Críticos (Inline) para evitar FOUC y mejorar LCP */}
         <style dangerouslySetInnerHTML={{
           __html: `
+
           :root { 
             --background: #0a1628; 
             --foreground: #f2f2f2; 
@@ -91,26 +84,7 @@ export default function RootLayout({
           .gravity-hero { opacity: 0; }
         ` }} />
 
-        {/* Carga asíncronas de CSS no crítico */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-          (function() {
-            function optimizeCSS() {
-              var links = document.querySelectorAll('link[rel=\"stylesheet\"]');
-              for (var i = 0; i < links.length; i++) {
-                var link = links[i];
-                if (link.href.indexOf(\'_next/static/css/\') !== -1 && link.media !== \'all\') {
-                  link.media = \'print\';
-                  link.onload = function() { this.media = \'all\'; };
-                }
-              }
-            }
-            optimizeCSS();
-            var observer = new MutationObserver(optimizeCSS);
-            observer.observe(document.head, { childList: true });
-            setTimeout(function() { observer.disconnect(); }, 10000);
-          })();
-        ` }} />
+
       </head>
       <body className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}

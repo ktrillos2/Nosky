@@ -77,27 +77,41 @@ export function HeroSection() {
 
   return (
     <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden rounded-[32px]">
+      {/* LCP Optimization: Static First Image (Rendered immediately by server) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={heroImages[0].src}
+          alt={heroImages[0].alt}
+          fill
+          className="object-cover object-center"
+          priority
+          loading="eager"
+          fetchPriority="high"
+          sizes="100vw"
+        />
+      </div>
+
       {/* Background Image Slider */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={heroImages[currentIndex].src}
-              alt={heroImages[currentIndex].alt}
-              fill
-              className="object-cover object-center"
-              priority={currentIndex === 0}
-              loading={currentIndex === 0 ? "eager" : "lazy"}
-              fetchPriority={currentIndex === 0 ? "high" : "auto"}
-            />
-          </motion.div>
+          {currentIndex !== 0 && ( /* Only animate subsequent slides to preserve LCP */
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={heroImages[currentIndex].src}
+                alt={heroImages[currentIndex].alt}
+                fill
+                className="object-cover object-center"
+                loading="eager" // Preload next slides when they render
+              />
+            </motion.div>
+          )}
         </AnimatePresence>
 
         {/* Overlay gradients for readability */}
