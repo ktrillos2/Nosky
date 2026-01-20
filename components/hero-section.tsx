@@ -14,8 +14,30 @@ const heroImages = [
     alt: "Paisaje de nopales bajo un cielo claro",
   },
   {
-    src: "/images/carrusel-2.JPG",
-    alt: "Equipo de trabajo profesional",
+    src: "/images/hero-add-siembra.JPG",
+    alt: "Campo de siembra y cultivo",
+    position: "object-[center_30%]",
+  },
+  {
+    src: "/images/hero-add-piedras.JPG",
+    alt: "Terreno agreste y rocoso",
+    position: "object-center",
+  },
+  {
+    src: "/images/pastizaje-2.JPG",
+    alt: "Vegetación y pastizales",
+    position: "object-[center_30%]",
+  },
+  {
+    src: "/images/hero-add-montaña.JPG",
+    alt: "Vista de montaña y terreno",
+    // Cambiamos 'object-center' por un valor arbitrario:
+    position: "object-[center_65%]",
+  },
+  {
+    src: "/images/hero-add-cielo.JPG",
+    alt: "Vista aérea del cielo",
+    position: "object-center",
   },
 ]
 
@@ -83,7 +105,7 @@ export function HeroSection() {
           src={heroImages[0].src}
           alt={heroImages[0].alt}
           fill
-          className="object-cover object-center"
+          className={`object-cover ${heroImages[0].position || "object-center"}`}
           priority
           loading="eager"
           fetchPriority="high"
@@ -93,25 +115,23 @@ export function HeroSection() {
 
       {/* Background Image Slider */}
       <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
-          {currentIndex !== 0 && ( /* Only animate subsequent slides to preserve LCP */
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={heroImages[currentIndex].src}
-                alt={heroImages[currentIndex].alt}
-                fill
-                className="object-cover object-center"
-                loading="eager" // Preload next slides when they render
-              />
-            </motion.div>
-          )}
+        <AnimatePresence>
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 1, zIndex: -1 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentIndex].src}
+              alt={heroImages[currentIndex].alt}
+              fill
+              className={`object-cover ${heroImages[currentIndex].position || "object-center"}`}
+              loading="eager"
+            />
+          </motion.div>
         </AnimatePresence>
 
         {/* Overlay gradients for readability */}
@@ -145,7 +165,7 @@ export function HeroSection() {
           <h1
             className="gravity-hero text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance drop-shadow-2xl opacity-0"
           >
-            Captura, Digitalización y <span className="text-primary text-glow drop-shadow-md">Documentación</span> del Mundo Real
+            Captura, Digitalización y <span className="text-primary text-glow drop-shadow-md">Documentación</span> Aérea y Terrestre
           </h1>
 
           {/* Subtitle */}
@@ -165,7 +185,7 @@ export function HeroSection() {
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 glow-accent"
             >
-              <Link href="#contacto">Solicitar Cotización</Link>
+              <Link href="#contacto">Hagamos equipo</Link>
             </Button>
             <Button
               asChild

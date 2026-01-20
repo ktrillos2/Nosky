@@ -14,24 +14,43 @@ gsap.registerPlugin(ScrollTrigger)
 const services = [
   {
     icon: Scan,
-    title: "Escaneo Láser 3D",
-    description: "Captura digital precisa de entornos físicos para ingeniería y arquitectura. Transformamos espacios físicos en modelos digitales de alta precisión utilizando tecnología láser de última generación.",
+    title: "Escaneo 3D",
+    description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
     image: "/3d-point-cloud-building-scan-colorful-architectura.jpg",
   },
   {
     icon: Camera,
-    title: "Fotogrametría Aérea",
-    description: "Levantamientos topográficos y mapeo 3D mediante tecnología de drones. Capturamos datos geoespaciales desde el aire para proyectos de gran escala con precisión centimétrica.",
-    features: ["Ortomosaicos", "Modelos de Elevación", "Inspección Visual"],
-    image: "/images/dron-detalle.jpg",
+    title: "Fotogrametría",
+    description: "Mediante Vehículos Aéreos No Tripulados (VANT) equipados con cámaras de alta resolución, realizamos la captura fotográfica necesaria para documentar, ilustrar e inspeccionar de forma precisa cualquier sitio o elemento de interés. Con esta tecnología obtenemos:",
+    features: [
+      "Ortomosaicos de alta precisión",
+      "Modelos Digitales de Elevación (MDE)",
+      "Curvas de nivel",
+      "Mapas termográficos",
+      "Modelos 3D y nubes de puntos",
+      "Cálculo de volúmenes y superficies",
+      "Inspección visual de áreas de difícil acceso",
+    ],
+    image: "/images/real-drone.jpg",
+    conclusion: "Todo esto permite cubrir grandes superficies en muy poco tiempo, con alta precisión y a un costo significativamente menor en comparación con métodos tradicionales.",
+    imagePosition: "object-[center_80%]", // Adjusted to bring the bottom up (show drone)
   },
   {
     icon: Compass,
     title: "Topografía de Precisión",
-    description: "Medición detallada de terrenos para proyectos de construcción y catastro. Proporcionamos datos topográficos exactos para la planificación y ejecución de obras civiles.",
-    features: ["Georreferenciación", "Curvas de Nivel", "Amonojamientos"],
+    description: "Realizamos la medición detallada de terrenos para el conocimiento exacto de dimensiones, superficies y desniveles, proporcionando una referencia confiable para proyectos de construcción, regularización y documentación legal. Entregamos datos topográficos precisos y verificables, fundamentales para la planificación, diseño y ejecución de obra, así como para su correcta descripción técnica en trámites y documentos oficiales.",
+    features: [
+      "Planimetría y altimetría",
+      "Georreferenciación (UTM)",
+      "Curvas de nivel",
+      "Amojonamiento",
+      "Levantamientos topográficos con estación total y GNSS",
+      "Cálculo de áreas, perímetros y volúmenes",
+      "Perfiles longitudinales y transversales del terreno",
+    ],
     image: "/images/topografia-de-precision.JPG",
+    conclusion: "Este enfoque garantiza precisión, claridad y respaldo técnico en cada proyecto.",
   },
   {
     icon: Box,
@@ -136,7 +155,7 @@ export function ServicesSection() {
                     alt={service.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className={`object-cover ${service.imagePosition || "object-center"} transition-transform duration-700 group-hover:scale-110`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
 
@@ -167,6 +186,13 @@ export function ServicesSection() {
                       </li>
                     ))}
                   </ul>
+
+                  {/* Conclusion text if available */}
+                  {service.conclusion && (
+                    <p className="text-muted-foreground text-sm lg:text-base mb-6 leading-relaxed">
+                      {service.conclusion}
+                    </p>
+                  )}
 
                   {/* Learn more link */}
                   <Link

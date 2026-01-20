@@ -15,7 +15,7 @@ export function VideoSection() {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Tecnología en Acción</h2>
                     <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        Visualiza nuestros procesos y resultados en movimiento.
+                        Visualiza nuestros procesos y resultados
                     </p>
                 </motion.div>
 
