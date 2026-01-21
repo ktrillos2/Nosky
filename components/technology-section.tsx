@@ -12,41 +12,50 @@ const technologies = [
   {
     category: "Drones",
     items: [
-      { name: "DJI Matrice 300 RTK", icon: Plane },
-      { name: "DJI Phantom 4 RTK", icon: Plane },
-      { name: "Wingtra One", icon: Plane },
+      { name: "DJI Matrice 350 RTK", icon: Plane },
+      { name: "DJI Matrice 400", icon: Plane },
+      { name: "DJI Matrice 4E", icon: Plane },
+      { name: "DJI Mavic 3 E M", icon: Plane },
+      { name: "DJI Mini 5 pro", icon: Plane },
+      { name: "DJI Mini 4 pro", icon: Plane },
     ],
   },
   {
     category: "Sensores",
     items: [
-      { name: "Zenmuse L1 (LiDAR)", icon: ScanLine },
-      { name: "Zenmuse P1 (100MP)", icon: ScanLine },
-      { name: "Zenmuse H20T", icon: ScanLine },
+      { name: "DJI Zenmuse L3", icon: ScanLine },
+      { name: "DJI Zenmuse L2", icon: ScanLine },
+      { name: "DJI Zenmuse L1", icon: ScanLine },
+      { name: "DJI Zenmuse P1", icon: ScanLine },
     ],
   },
   {
     category: "Escáneres",
     items: [
-      { name: "Leica RTC360", icon: Box },
-      { name: "FARO Focus", icon: Box },
-      { name: "Matterport Pro2", icon: Box },
+      { name: "Leica BLK 360", icon: Box },
+      { name: "Leica C10", icon: Box },
+      { name: "Faro Focus S", icon: Box },
+      { name: "Trimble TX8", icon: Box },
+      { name: "Satlab Cygnus Lite", icon: Box },
     ],
   },
   {
     category: "Topografía",
     items: [
-      { name: "Estación Total Trimble", icon: Settings },
-      { name: "GNSS RTK", icon: Settings },
-      { name: "Nivel Digital", icon: Settings },
+      { name: "Estación total (2mm + 2ppm, P.A. 2\")", icon: Settings },
+      { name: "GNSS (RTK Y Postproceso)", icon: Settings },
     ],
   },
   {
     category: "Software",
     items: [
-      { name: "Pix4D / DJI Terra", icon: Cpu },
-      { name: "CloudCompare", icon: Cloud },
-      { name: "Revit / AutoCAD", icon: Cpu },
+      { name: "Agisoft MetaShape", icon: Cpu },
+      { name: "DJI Terra", icon: Cpu },
+      { name: "Revit", icon: Cpu },
+      { name: "Archicad", icon: Cpu },
+      { name: "Autocad", icon: Cpu },
+      { name: "CivilCad", icon: Cpu },
+      { name: "Civil3D", icon: Cpu },
     ],
   },
 ]
@@ -180,12 +189,12 @@ export function TechnologySection() {
             </div>
             <div className="w-px h-8 bg-border hidden md:block" />
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">ISO</div>
+              <div className="text-2xl font-bold text-foreground">NTEP</div>
               <div className="text-xs text-muted-foreground">Control de Calidad</div>
             </div>
             <div className="w-px h-8 bg-border hidden md:block" />
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">INEGI</div>
+              <div className="text-2xl font-bold text-foreground">RGNA</div>
               <div className="text-xs text-muted-foreground">Marco Geodésico</div>
             </div>
           </div>

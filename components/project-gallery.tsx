@@ -14,10 +14,12 @@ const galleryImages = [
     {
         src: "/images/portfolio-landscape.jpg",
         alt: "Vista panorámica de proyecto topográfico en campo",
+        className: "object-[center_35%]",
     },
     {
         src: "/images/carrusel-1.JPG",
         alt: "Proyecto de topografía y medición en campo",
+        className: "object-[center_35%]",
     },
     {
         src: "/images/carrusel-2.JPG",
@@ -133,7 +135,7 @@ export function ProjectGallery() {
                                     alt={galleryImages[currentIndex].alt}
                                     fill
                                     sizes="(max-width: 1024px) 100vw, 1024px"
-                                    className="object-cover"
+                                    className={`object-cover ${galleryImages[currentIndex].className || ""}`}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                             </motion.div>

@@ -11,52 +11,54 @@ gsap.registerPlugin(ScrollTrigger)
 const portfolioItems = [
   {
     id: 1,
-    title: "Vuelo LiDAR con Drone Profesional",
+    title: "Vuelo LiDAR",
     category: "Captura Aérea",
     description:
-      "Operación con drone DJI equipado para captura de datos topográficos desde el aire, permitiendo acceso a zonas difíciles.",
-    image: "/images/imagen-dron-nueva.JPG",
-    tech: ["DJI Enterprise", "Fotogrametría", "Nube de Puntos"],
+      "Ejecución de operacion con Dron DJI Matrice 350 Equipado con sensor L2 logrando la captura de datos de una gran superficie a bajo costo”.",
+    image: "/images/portfolio-drone.jpg",
+    tech: ["DJI Enterprise", "LiDAR", "Nube de Puntos"],
+    className: "object-[center_80%] brightness-130",
   },
   {
     id: 2,
     title: "Documentación de Patrimonio",
     category: "Arquitectura",
     description:
-      "Levantamiento arquitectónico de alta precisión en edificaciones históricas para proyectos de restauración y conservación.",
+      "Documentación digital de edificaciones históricas mediante levantamiento de alta precisión para proyectos de restauración y conservación.",
     image: "/images/gallery-arch.jpg",
-    tech: ["Estación Total", "Fachadas", "Detalle Milimétrico"],
+    tech: ["#Conservación #Digitalización #Historica"],
   },
   {
     id: 3,
-    title: "Topografía en Terreno Agreste",
+    title: "Levantamiento y Análisis Topográfico",
     category: "Topografía",
     description:
       "Trabajo de campo en entornos desafiantes, garantizando mediciones exactas sin importar las condiciones del terreno.",
     image: "/images/terreno-agreste.JPG",
-    tech: ["Estación Total", "Geodesia", "Control Terrestre"],
+    tech: ["GNSS", "Geodesia"],
+    className: "object-[center_60%]",
   },
   {
     id: 4,
-    title: "Levantamientos Agrícolas",
+    title: "Topografía y Análisis de Terreno Agrícola",
     category: "Fotogrametría",
-    description: "Aplicación de tecnología topográfica en sectores agrícolas y rurales para planificación de cultivos y parcelas.",
+    description: "Aplicación de tecnología topográfica en sectores agrícolas y rurales para planificación de cultivos, parcelas y descripción en documentación legal.",
     image: "/images/portfolio-cactus.jpg",
-    tech: ["Estación Total", "Catastro", "Planimetría"],
+    tech: ["Estación Total", "Planeación", "Planimetría"],
   },
   {
     id: 5,
-    title: "Georreferenciación Urbana",
+    title: "Georreferenciación",
     category: "Geodesia",
-    description: "Puntos de control y levantamientos GNSS en entornos urbanos y viales para proyectos de infraestructura.",
+    description: "Colocación de puntos de control y levantamiento mediante GNSS en entornos urbanos, rurales y viales para la     correcta Obtención la posición geográfica absoluta .",
     image: "/images/feature-gps.jpg",
-    tech: ["GNSS RTK", "Vialidad", "Infraestructura"],
+    tech: ["#GNSS #INEGI #RGNA"],
   },
   {
     id: 6,
-    title: "Escaneo de Estructuras",
+    title: "Escaneo 3D",
     category: "Escaneo 3D",
-    description: "Captura de nubes de puntos de alta precisión para ingeniería inversa y análisis estructural.",
+    description: "Captura de nube de puntos de alta precisión para analisis estructural y espacial. .",
     image: "/images/escaneo-de-estructuras.JPG",
     tech: ["LiDAR", "Nube de Puntos", "Ingeniería"],
   },
@@ -127,7 +129,7 @@ export function PortfolioSection() {
         >
           <span className="text-primary font-mono text-sm uppercase tracking-widest">Portafolio</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6 text-balance">
-            Proyectos que <span className="text-primary">Transforman</span> la Realidad
+            Proyectos que <span className="text-primary">Digitalizan</span> la Realidad
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Cada proyecto es una oportunidad para demostrar nuestra precisión y compromiso con la excelencia técnica.
@@ -148,7 +150,7 @@ export function PortfolioSection() {
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={`${item.id === 1 ? 'object-contain' : 'object-cover'} transition-transform duration-500 group-hover:scale-110`}
+                  className={`object-cover transition-transform duration-500 group-hover:scale-110 ${item.className || ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -163,7 +165,7 @@ export function PortfolioSection() {
               {/* Content */}
               <div className="p-6 relative">
                 <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{item.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">{item.description}</p>
 
                 {/* Tech Tags */}
                 <div className="flex flex-wrap gap-2">

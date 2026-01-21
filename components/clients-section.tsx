@@ -9,12 +9,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
 const industries = [
-  { icon: Building2, name: "Construcción", description: "Control de obra y as-built" },
-  { icon: Factory, name: "Industrial", description: "Plantas y manufactura" },
+  { icon: Building2, name: "Construcción", description: "Control e inspección de obra" },
+  { icon: Factory, name: "Industrial", description: "Representación industrial 2D/3D" },
   { icon: Landmark, name: "Patrimonio", description: "Documentación histórica" },
   { icon: Home, name: "Arquitectura", description: "Proyectos residenciales" },
-  { icon: Mountain, name: "Minería", description: "Volumetrías y terrenos" },
-  { icon: Zap, name: "Energía", description: "Inspección de activos" },
+  { icon: Mountain, name: "Minería", description: "Inspección y volumetrías" },
+  { icon: Zap, name: "Energía", description: "Inspección  y  Monitoreo eficiente" },
 ]
 
 export function ClientsSection() {

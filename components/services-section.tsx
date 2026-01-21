@@ -34,7 +34,7 @@ const services = [
     ],
     image: "/images/real-drone.jpg",
     conclusion: "Todo esto permite cubrir grandes superficies en muy poco tiempo, con alta precisión y a un costo significativamente menor en comparación con métodos tradicionales.",
-    imagePosition: "object-[center_80%]", // Adjusted to bring the bottom up (show drone)
+    imagePosition: "object-[center_80%] brightness-130", // Adjusted to bring the bottom up (show drone)
   },
   {
     icon: Compass,
@@ -55,16 +55,32 @@ const services = [
   {
     icon: Box,
     title: "Modelado BIM",
-    description: "Creación de modelos inteligentes para la gestión eficiente de infraestructuras. Desarrollamos modelos BIM completos desde LOD 100 hasta LOD 500 para proyectos de construcción.",
-    features: ["LOD 100-500", "Coordinación 3D", "Documentación As-Built"],
+    description: "Desarrollamos modelos inteligentes BIM orientados a la gestión eficiente de edificaciones e infraestructuras, integrando información geométrica y técnica para todas las etapas del proyecto. Creamos modelos BIM desde LOD 100 hasta LOD 400, así como As-Built, garantizando coherencia entre el diseño, la construcción y la operación. Nuestros servicios incluyen:",
+    features: [
+      "LOD 100 – Modelado conceptual",
+      "LOD 200 – Modelado esquemático",
+      "LOD 300 – Modelado de diseño y coordinación",
+      "LOD 400 – Modelado para construcción",
+      "Documentación As-Built",
+      "Extracción de planos y cuantificaciones",
+      "Integración con levantamientos topográficos, Arquitectonicos y Estructurales, nubes de puntos y fotogrametría",
+    ],
     image: "/images/bim-model.png",
+    conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
   },
   {
     icon: FileText,
-    title: "Consultoría Técnica",
-    description: "Asesoramiento experto en geomática y gestión de datos espaciales. Brindamos soporte técnico especializado en todas las fases de su proyecto de captura y procesamiento de datos.",
-    features: ["Control de Calidad", "Supervisión de Obra", "Capacitación"],
+    title: "Consultoría Sobre Decisión Técnica Mediante Datos",
+    description: "Brindamos consultoría técnica especializada enfocada en la toma de decisiones basada en datos, integrando información obtenida mediante levantamientos topográficos, captura aérea, modelado 3D, fotogrametría y BIM. Nuestro enfoque permite analizar, interpretar y transformar los datos técnicos en soluciones claras y estratégicas para proyectos de topografía, arquitectura y conservación del patrimonio histórico, reduciendo riesgos y optimizando recursos. Nuestros servicios incluyen:",
+    features: [
+      "Análisis y validación de datos técnicos",
+      "Interpretación de nubes de puntos, modelos 3D y ortomosaicos",
+      "Asesoría para selección de metodologías y tecnologías de captura",
+      "Informes técnicos para soporte de decisiones, proyectos y trámites",
+      "Acompañamiento técnico durante la planeación y ejecución del proyecto",
+    ],
     image: "/images/trabajo-campo.jpg",
+    conclusion: "La consultoría técnica garantiza decisiones informadas, mayor control del proyecto y respaldo técnico sólido en cada etapa del proceso.",
   },
 ]
 
@@ -147,9 +163,9 @@ export function ServicesSection() {
               key={service.title}
               className="gravity-card group"
             >
-              <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 bg-background/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10`}>
+              <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-background/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 items-center`}>
                 {/* Image Section - Larger and more prominent */}
-                <div className="relative w-full lg:w-1/2 h-80 lg:h-96 overflow-hidden">
+                <div className="relative w-full lg:w-1/2 h-80 lg:min-h-full overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.title}
@@ -180,8 +196,8 @@ export function ServicesSection() {
                   {/* Features list */}
                   <ul className="space-y-3 mb-6">
                     {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-3 text-sm lg:text-base text-muted-foreground">
-                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      <li key={feature} className="flex items-start gap-3 text-sm lg:text-base text-muted-foreground">
+                        <div className="w-2 h-2 mt-1.5 rounded-full bg-primary shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
