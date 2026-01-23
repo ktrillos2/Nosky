@@ -2,22 +2,53 @@
 
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
-import { Scan, Camera, Compass, Box, FileText, ArrowRight } from "lucide-react"
+import { Scan, Camera, Compass, Box, FileText, ArrowRight, LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-gsap.registerPlugin(ScrollTrigger)
+interface Service {
+  icon: LucideIcon
+  title: string
+  description: string
+  features: string[]
+  image: string
+  conclusion?: string
+  imagePosition?: string
+  imageFit?: string
+}
 
-const services = [
+const services: Service[] = [
+  {
+    icon: Scan,
+    title: "LiDAR Aéreo",
+    description: "El LiDAR aéreo es una tecnología de captura remota de alta precisión que utiliza pulsos láser emitidos desde drones. Permite obtener información detallada del relieve, incluso en zonas con vegetación densa, siendo una herramienta clave para topografía, ingeniería, agricultura y conservación del patrimonio histórico.",
+    features: [
+      "Generación de nubes de puntos 3D georreferenciadas",
+      "Modelos Digitales del Terreno (MDT) y de Superficie (MDS)",
+      "Curvas de nivel y análisis de pendientes",
+      "Cálculo de volúmenes y superficies",
+      "Cartografía de alta precisión",
+      "Análisis del terreno bajo cobertura vegetal",
+    ],
+    image: "/images/Dronsote.jpg",
+    conclusion: "El uso de LiDAR aéreo permite cubrir grandes extensiones en menor tiempo, con alta precisión y mínima intervención en campo.",
+    imagePosition: "object-[center_77%] brightness-130",
+  },
+  /* {
+    icon: Scan,
+    title: "Escaneo 3D",
+    description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
+    features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
+    image: "/images/D-1.png",
+  }, */
   {
     icon: Scan,
     title: "Escaneo 3D",
     description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
-    image: "/3d-point-cloud-building-scan-colorful-architectura.jpg",
+    image: "/images/D-1.png",
+    imagePosition: "object-[center_12%]",
   },
   {
     icon: Camera,
@@ -32,9 +63,9 @@ const services = [
       "Cálculo de volúmenes y superficies",
       "Inspección visual de áreas de difícil acceso",
     ],
-    image: "/images/real-drone.jpg",
+    image: "/images/E-2.jpg",
     conclusion: "Todo esto permite cubrir grandes superficies en muy poco tiempo, con alta precisión y a un costo significativamente menor en comparación con métodos tradicionales.",
-    imagePosition: "object-[center_80%] brightness-130", // Adjusted to bring the bottom up (show drone)
+    imagePosition: "object-[center_95%] brightness-130",
   },
   {
     icon: Compass,
@@ -49,9 +80,26 @@ const services = [
       "Cálculo de áreas, perímetros y volúmenes",
       "Perfiles longitudinales y transversales del terreno",
     ],
-    image: "/images/topografia-de-precision.JPG",
+    image: "/images/IMG_7066.JPG",
     conclusion: "Este enfoque garantiza precisión, claridad y respaldo técnico en cada proyecto.",
   },
+  /* {
+    icon: Box,
+    title: "Modelado BIM",
+    description: "Desarrollamos modelos inteligentes BIM orientados a la gestión eficiente de edificaciones e infraestructuras, integrando información geométrica y técnica para todas las etapas del proyecto. Creamos modelos BIM desde LOD 100 hasta LOD 400, así como As-Built, garantizando coherencia entre el diseño, la construcción y la operación. Nuestros servicios incluyen:",
+    features: [
+      "LOD 100 – Modelado conceptual",
+      "LOD 200 – Modelado esquemático",
+      "LOD 300 – Modelado de diseño y coordinación",
+      "LOD 400 – Modelado para construcción",
+      "Documentación As-Built",
+      "Extracción de planos y cuantificaciones",
+      "Integración con levantamientos topográficos, Arquitectonicos y Estructurales, nubes de puntos y fotogrametría",
+    ],
+    image: "/images/G-1.png",
+    conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
+  }, */
+
   {
     icon: Box,
     title: "Modelado BIM",
@@ -65,9 +113,11 @@ const services = [
       "Extracción de planos y cuantificaciones",
       "Integración con levantamientos topográficos, Arquitectonicos y Estructurales, nubes de puntos y fotogrametría",
     ],
-    image: "/images/bim-model.png",
+    image: "/images/G-1.png",
     conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
+    imagePosition: "object-[center_12%]",
   },
+
   {
     icon: FileText,
     title: "Consultoría Sobre Decisión Técnica Mediante Datos",
@@ -79,7 +129,7 @@ const services = [
       "Informes técnicos para soporte de decisiones, proyectos y trámites",
       "Acompañamiento técnico durante la planeación y ejecución del proyecto",
     ],
-    image: "/images/trabajo-campo.jpg",
+    image: "/images/IMG-00045.jpeg",
     conclusion: "La consultoría técnica garantiza decisiones informadas, mayor control del proyecto y respaldo técnico sólido en cada etapa del proceso.",
   },
 ]
@@ -87,159 +137,122 @@ const services = [
 export function ServicesSection() {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const initGSAP = () => {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".gravity-card",
-          {
-            y: -150,
-            opacity: 0,
-            rotate: () => Math.random() * 10 - 5,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            rotate: 0,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: "bounce.out",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        )
-      }, containerRef)
-      return ctx
-    }
-
-    let ctx: gsap.Context
-    if (document.readyState === "complete") {
-      ctx = initGSAP()
-    } else {
-      const handleLoad = () => {
-        ctx = initGSAP()
-      }
-      window.addEventListener("load", handleLoad)
-      return () => {
-        window.removeEventListener("load", handleLoad)
-        if (ctx) ctx.revert()
-      }
-    }
-
-    return () => {
-      if (ctx) ctx.revert()
-    }
-  }, [])
-
   return (
-    <section id="servicios" className="py-24 bg-card rounded-[32px] relative overflow-hidden">
+    <section id="servicios" className="py-24 bg-card relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-800/50" />
 
-      <div className="container px-4 md:px-6 relative">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="container px-4 md:px-6 relative z-10">
+        {/* Header Section */}
+        <div className="max-w-4xl mx-auto mb-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="opacity-0"
           >
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
               Nuestras Soluciones
             </h2>
-            <p className="text-muted-foreground text-lg md:text-xl">
-              Tecnología de vanguardia aplicada a la captura y procesamiento de datos geoespaciales.
-            </p>
+            <h3 className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Innovación y precisión en cada <span className="text-primary font-medium">metro cuadrado</span>.
+            </h3>
+
+            {/* Key Points Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left mt-12 bg-background/40 backdrop-blur-sm p-6 rounded-2xl border border-primary/10">
+              <div className="flex flex-col gap-2">
+                <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-2">
+                  <Scan className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground">Tecnología de Punta</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">Equipos de última generación para capturas aéreas y terrestres de máxima fidelidad.</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-2">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground">Datos Accionables</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">Transformamos nubes de puntos en información estratégica para tu proyecto.</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-2">
+                  <Compass className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground">Cobertura Total</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">Soluciones integrales desde el levantamiento inicial hasta el modelado final.</p>
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        <div ref={containerRef} className="space-y-8 max-w-6xl mx-auto">
+        {/* Services Grid */}
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={service.title}
-              className="gravity-card group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full"
             >
-              <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-background/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 items-center`}>
-                {/* Image Section - Larger and more prominent */}
-                <div className="relative w-full lg:w-1/2 h-80 lg:min-h-full overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className={`object-cover ${service.imagePosition || "object-center"} transition-transform duration-700 group-hover:scale-110`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+              {/* Image Header - Fixed Height & Edge-to-Edge */}
+              <div className="relative w-full h-[280px] overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className={`transition-transform duration-700 group-hover:scale-105 ${service.imageFit || "object-cover"} ${service.imagePosition || "object-center"}`}
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
 
-                  {/* Icon overlay on image */}
-                  <div className="absolute top-6 left-6">
-                    <div className="w-16 h-16 rounded-xl bg-primary/10 backdrop-blur-md flex items-center justify-center border border-primary/20 group-hover:scale-110 transition-transform duration-300">
-                      <service.icon className="w-8 h-8 text-primary" />
-                    </div>
+                {/* Icon Badge - Floating on image bottom-left */}
+                <div className="absolute bottom-4 left-6">
+                  <div className="h-12 w-12 rounded-lg bg-background/90 backdrop-blur-md border border-primary/20 shadow-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300">
+                    <service.icon className="w-6 h-6 text-primary" />
                   </div>
                 </div>
+              </div>
 
-                {/* Content Section */}
-                <div className="flex-1 p-8 lg:p-12 flex flex-col justify-center">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
-                    {service.title}
-                  </h3>
-
-                  <p className="text-muted-foreground text-base lg:text-lg mb-6 leading-relaxed">
-                    {service.description}
+              {/* Card Content */}
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {service.description.split('.')[0]}. {service.conclusion || ""}
                   </p>
+                </div>
 
-                  {/* Features list */}
-                  <ul className="space-y-3 mb-6">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3 text-sm lg:text-base text-muted-foreground">
-                        <div className="w-2 h-2 mt-1.5 rounded-full bg-primary shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Conclusion text if available */}
-                  {service.conclusion && (
-                    <p className="text-muted-foreground text-sm lg:text-base mb-6 leading-relaxed">
-                      {service.conclusion}
-                    </p>
-                  )}
-
-                  {/* Learn more link */}
+                <div className="mt-auto pt-4 border-t border-border/30">
                   <Link
                     href="#contacto"
-                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium group/link"
+                    className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
                   >
                     Más información
-                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* CTA */}
+        {/* CTA Footer */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16 opacity-0"
+          className="text-center mt-20"
         >
           <Button
             asChild
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold glow-accent"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 h-12 rounded-full shadow-lg shadow-accent/20 transition-all hover:scale-105"
           >
             <Link href="#contacto">
-              Solicitar Cotización
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              Hagamos equipo
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
         </motion.div>

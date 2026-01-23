@@ -26,7 +26,7 @@ const galleryImages = [
         alt: "Equipo de trabajo en levantamiento topográfico",
     },
     {
-        src: "/images/carrusel-3.JPG",
+        src: "/images/IMG-19018.png",
         alt: "Captura de datos geoespaciales con tecnología avanzada",
     },
 ]

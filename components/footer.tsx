@@ -36,16 +36,17 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-2">
             <Link href="#inicio" className="flex items-center gap-3 mb-4" aria-label="Ir al inicio">
               <Image
-                src="/images/logo-nosky-new.jpg"
+                src="/images/A1 Logo Circular.png"
                 alt="NOSKY - Captura, Digitalización y Documentación Aérea y Terrestre"
-                width={160}
-                height={80}
-                className="h-16 w-auto"
+                width={100}
+                height={100}
+                className="h-24 w-auto rounded-full"
               />
             </Link>
-            <p className="text-sm text-muted-foreground max-w-xs mb-6">
-              Captura, Digitalización y Documentación Aérea y Terrestre. Transformamos espacios físicos en datos
-              precisos.
+            <p className="text-sm text-muted-foreground max-w-xs mb-6 whitespace-pre-line">
+              Captura, Digitalización y Documentación{'\n'}
+              Aérea y Terrestre{'\n'}
+              Transformamos espacios físicos en datos precisos
             </p>
             <p className="text-xs text-muted-foreground">
               © {new Date().getFullYear()} NOSKY. Todos los derechos reservados.

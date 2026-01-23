@@ -39,11 +39,11 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           <Link href="#inicio" className="flex items-center gap-3" aria-label="Ir al inicio">
             <Image
-              src="/images/logo-nosky-new.jpg"
+              src="/images/A1 Logo Circular.png"
               alt="NOSKY - Captura, Digitalización y Documentación Aérea y Terrestre"
-              width={180}
-              height={90}
-              className="h-14 w-auto"
+              width={100}
+              height={100}
+              className="h-20 w-auto rounded-full"
             />
           </Link>
 
@@ -64,7 +64,7 @@ export function Navbar() {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold glow-accent">
-              <Link href="#contacto">Solicitar Cotización</Link>
+              <Link href="#contacto">Hagamos equipo</Link>
             </Button>
           </div>
 
@@ -101,7 +101,7 @@ export function Navbar() {
                 </Link>
               ))}
               <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold mt-4 w-full">
-                <Link href="#contacto">Solicitar Cotización</Link>
+                <Link href="#contacto">Hagamos equipo</Link>
               </Button>
             </div>
           </motion.div>
