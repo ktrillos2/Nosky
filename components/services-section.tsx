@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, CSSProperties } from "react"
 import { motion } from "framer-motion"
 import { Scan, Camera, Compass, Box, FileText, ArrowRight, LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -16,6 +16,7 @@ interface Service {
   conclusion?: string
   imagePosition?: string
   imageFit?: string
+  style?: CSSProperties
 }
 
 const services: Service[] = [
@@ -48,7 +49,9 @@ const services: Service[] = [
     description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
     image: "/images/D-1.png",
-    imagePosition: "object-[center_12%]",
+    /*     imagePosition: "object-top", */
+    imageFit: "object-contain",
+    style: { transform: "translateY(-1px)" }
   },
   {
     icon: Camera,
@@ -83,23 +86,6 @@ const services: Service[] = [
     image: "/images/IMG_7066.JPG",
     conclusion: "Este enfoque garantiza precisión, claridad y respaldo técnico en cada proyecto.",
   },
-  /* {
-    icon: Box,
-    title: "Modelado BIM",
-    description: "Desarrollamos modelos inteligentes BIM orientados a la gestión eficiente de edificaciones e infraestructuras, integrando información geométrica y técnica para todas las etapas del proyecto. Creamos modelos BIM desde LOD 100 hasta LOD 400, así como As-Built, garantizando coherencia entre el diseño, la construcción y la operación. Nuestros servicios incluyen:",
-    features: [
-      "LOD 100 – Modelado conceptual",
-      "LOD 200 – Modelado esquemático",
-      "LOD 300 – Modelado de diseño y coordinación",
-      "LOD 400 – Modelado para construcción",
-      "Documentación As-Built",
-      "Extracción de planos y cuantificaciones",
-      "Integración con levantamientos topográficos, Arquitectonicos y Estructurales, nubes de puntos y fotogrametría",
-    ],
-    image: "/images/G-1.png",
-    conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
-  }, */
-
   {
     icon: Box,
     title: "Modelado BIM",
@@ -155,7 +141,7 @@ export function ServicesSection() {
               Nuestras Soluciones
             </h2>
             <h3 className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Innovación y precisión en cada <span className="text-primary font-medium">metro cuadrado</span>.
+              Tecnología de Vanguardia aplicada a la captura y procesamiento de datos geoespaciales
             </h3>
 
             {/* Key Points Grid */}
@@ -203,6 +189,7 @@ export function ServicesSection() {
                   alt={service.title}
                   fill
                   className={`transition-transform duration-700 group-hover:scale-105 ${service.imageFit || "object-cover"} ${service.imagePosition || "object-center"}`}
+                  style={service.style}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
 
