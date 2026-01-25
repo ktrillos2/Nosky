@@ -140,7 +140,7 @@ export function TechnologySection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 opacity-0"
         >
-          <span className="text-primary font-mono text-sm uppercase tracking-widest">Tecnología</span>
+          <span className="text-primary font-mono text-lg uppercase tracking-widest">Tecnología</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6 text-balance">
             Equipamiento de <span className="text-primary">Última Generación</span>
           </h2>
@@ -173,32 +173,7 @@ export function TechnologySection() {
           ))}
         </div>
 
-        {/* Certification Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16 text-center opacity-0"
-        >
-          <p className="text-sm text-muted-foreground mb-6">Certificaciones y Autorizaciones</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">AFAC</div>
-              <div className="text-xs text-muted-foreground">Operador Certificado</div>
-            </div>
-            <div className="w-px h-8 bg-border hidden md:block" />
-            <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">NTEP</div>
-              <div className="text-xs text-muted-foreground">Control de Calidad</div>
-            </div>
-            <div className="w-px h-8 bg-border hidden md:block" />
-            <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">RGNA</div>
-              <div className="text-xs text-muted-foreground">Marco Geodésico</div>
-            </div>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   )

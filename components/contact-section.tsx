@@ -22,7 +22,7 @@ export function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 opacity-0 animate-in fade-in fill-mode-forwards"
         >
-          <span className="text-primary font-mono text-sm uppercase tracking-widest">Contacto</span>
+          <span className="text-primary font-mono text-lg uppercase tracking-widest">Contacto</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
             ¡Hagamos<span className="text-primary"> Equipo!</span>
           </h2>
@@ -89,11 +89,13 @@ export function ContactSection() {
                       className="w-full h-11 px-3 rounded-md bg-background/50 border border-border text-foreground focus:border-primary focus:ring-2 focus:ring-primary/50 focus:outline-none transition-all duration-300"
                     >
                       <option value="">Selecciona un servicio</option>
-                      <option value="topografia">Topografía de Precisión</option>
-                      <option value="fotogrametria">Fotogrametría & Drones</option>
-                      <option value="lidar">LiDAR Aéreo & Terrestre</option>
-                      <option value="bim">Modelado BIM & 3D</option>
-                      <option value="documentacion">Documentación Digital</option>
+                      <option value="topografia-precision">Topografía de precisión</option>
+                      <option value="fotogrametria">Fotogrametría</option>
+                      <option value="lidar-aereo">LíDAR aéreo</option>
+                      <option value="escaneo-3d">Escaneo 3D</option>
+                      <option value="modelado-bim">Modelado BIM</option>
+                      <option value="drones">Drones</option>
+                      <option value="documentacion-digital">Documentación Digital</option>
                     </select>
                   </div>
                   <div className="space-y-2">
@@ -156,7 +158,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Ubicación</h3>
-                    <p className="text-muted-foreground">Ciudad de México, México</p>
+                    <p className="text-muted-foreground">Atendemos proyectos en toda la República Mexicana</p>
                   </div>
                 </div>
               </div>

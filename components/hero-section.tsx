@@ -10,6 +10,16 @@ import gsap from "gsap"
 
 const heroImages = [
   {
+    src: "/images/hero-add-cielo.JPG",
+    alt: "Vista aérea del cielo",
+    position: "object-center",
+  },
+  {
+    src: "/images/E-2.jpg",
+    alt: "Drone inspeccionando terreno",
+    position: "object-bottom",
+  },
+  {
     src: "/images/nopales-cielo.jpg",
     alt: "Paisaje de nopales bajo un cielo claro",
   },
@@ -33,11 +43,6 @@ const heroImages = [
     alt: "Vista de montaña y terreno",
     // Cambiamos 'object-center' por un valor arbitrario:
     position: "object-[center_65%]",
-  },
-  {
-    src: "/images/hero-add-cielo.JPG",
-    alt: "Vista aérea del cielo",
-    position: "object-center",
   },
 ]
 
@@ -118,9 +123,9 @@ export function HeroSection() {
         <AnimatePresence>
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1, zIndex: -1 }}
+            initial={{ opacity: 0, zIndex: 10 }}
+            animate={{ opacity: 1, zIndex: 10 }}
+            exit={{ opacity: 1, zIndex: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
             className="absolute inset-0"
           >

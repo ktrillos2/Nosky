@@ -36,20 +36,12 @@ const services: Service[] = [
     conclusion: "El uso de LiDAR aéreo permite cubrir grandes extensiones en menor tiempo, con alta precisión y mínima intervención en campo.",
     imagePosition: "object-[center_77%] brightness-130",
   },
-  /* {
-    icon: Scan,
-    title: "Escaneo 3D",
-    description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
-    features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
-    image: "/images/D-1.png",
-  }, */
   {
     icon: Scan,
     title: "Escaneo 3D",
     description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
     image: "/images/D-1.png",
-    /*     imagePosition: "object-top", */
     imageFit: "object-contain",
     style: { transform: "translateY(-1px)" }
   },
@@ -106,7 +98,7 @@ const services: Service[] = [
 
   {
     icon: FileText,
-    title: "Consultoría Sobre Decisión Técnica Mediante Datos",
+    title: "Consultoría técnica basada en datos",
     description: "Brindamos consultoría técnica especializada enfocada en la toma de decisiones basada en datos, integrando información obtenida mediante levantamientos topográficos, captura aérea, modelado 3D, fotogrametría y BIM. Nuestro enfoque permite analizar, interpretar y transformar los datos técnicos en soluciones claras y estratégicas para proyectos de topografía, arquitectura y conservación del patrimonio histórico, reduciendo riesgos y optimizando recursos. Nuestros servicios incluyen:",
     features: [
       "Análisis y validación de datos técnicos",
@@ -171,54 +163,71 @@ export function ServicesSection() {
           </motion.div>
         </div>
 
-        {/* Services Grid */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Services Zig-Zag Layout */}
+        <div ref={containerRef} className="flex flex-col gap-24 lg:gap-32">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-8 lg:gap-16 items-center`}
             >
-              {/* Image Header - Fixed Height & Edge-to-Edge */}
-              <div className="relative w-full h-[280px] overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className={`transition-transform duration-700 group-hover:scale-105 ${service.imageFit || "object-cover"} ${service.imagePosition || "object-center"}`}
-                  style={service.style}
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
+              {/* Image Section */}
+              <div className="w-full lg:w-1/2 relative group">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-2xl border border-white/10">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className={`transition-transform duration-700 group-hover:scale-105 ${service.imageFit || "object-cover"} ${service.imagePosition || "object-center"}`}
+                    style={service.style}
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
 
-                {/* Icon Badge - Floating on image bottom-left */}
-                <div className="absolute bottom-4 left-6">
-                  <div className="h-12 w-12 rounded-lg bg-background/90 backdrop-blur-md border border-primary/20 shadow-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300">
-                    <service.icon className="w-6 h-6 text-primary" />
+                  {/* Floating Icon Badge */}
+                  <div className={`absolute ${index % 2 === 0 ? "bottom-6 left-6" : "bottom-6 right-6"} z-10`}>
+                    <div className="h-16 w-16 rounded-2xl bg-background/95 backdrop-blur-md border border-primary/20 shadow-xl flex items-center justify-center">
+                      <service.icon className="w-8 h-8 text-primary" />
+                    </div>
                   </div>
                 </div>
+                {/* Decorative Pattern Behind */}
+                <div className={`absolute -z-10 top-1/2 -translate-y-1/2 ${index % 2 === 0 ? "-left-12" : "-right-12"} w-64 h-64 bg-primary/20 blur-[100px] rounded-full opacity-50`} />
               </div>
 
-              {/* Card Content */}
-              <div className="p-6 flex flex-col flex-grow">
-                <div className="mb-4">
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {service.description.split('.')[0]}. {service.conclusion || ""}
-                  </p>
+              {/* Content Section */}
+              <div className="w-full lg:w-1/2 space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+                    {service.title}
+                  </h3>
+                  <div className="h-1 w-20 bg-primary rounded-full" />
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-border/30">
-                  <Link
-                    href="#contacto"
-                    className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
-                  >
-                    Más información
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
+
+                {/* Features List */}
+                <ul className="space-y-3 pt-4">
+                  {service.features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {service.conclusion && (
+                  <div className="pt-6 relative">
+                    <div className="absolute left-0 top-6 bottom-0 w-1 bg-primary/30 rounded-full" />
+                    <p className="pl-4 text-base font-medium italic text-foreground/80">
+                      "{service.conclusion}"
+                    </p>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

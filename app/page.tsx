@@ -20,8 +20,8 @@ export default function HomePage() {
       <VideoSection />
       <ServicesSection />
       <ProjectGallery />
-      <PortfolioSection />
       <TechnologySection />
+      <PortfolioSection />
       <ClientsSection />
       <ContactSection />
       <Footer />

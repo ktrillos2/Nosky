@@ -78,7 +78,7 @@ export function ClientsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 opacity-0"
         >
-          <span className="text-primary font-mono text-sm uppercase tracking-widest">Sectores</span>
+          <span className="text-primary font-mono text-lg uppercase tracking-widest">Sectores</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
             Industrias que <span className="text-primary">Confían</span> en Nosotros
           </h2>
