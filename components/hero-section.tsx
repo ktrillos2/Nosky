@@ -8,16 +8,47 @@ import Image from "next/image"
 import Link from "next/link"
 import gsap from "gsap"
 
-const heroImages = [
+interface HeroImage {
+  src: string
+  alt: string
+  position?: string
+  fit?: string
+  bg?: string
+  className?: string
+}
+
+const heroImages: HeroImage[] = [
   {
     src: "/images/hero-add-cielo.JPG",
     alt: "Vista aérea del cielo",
     position: "object-center",
   },
+  /* {
+    src: "/images/dron-hd.png",
+    alt: "Vista aérea con dron HD",
+    position: "object-[center_75%]",
+    fit: "object-contain",
+    bg: "bg-black/90",
+    className: "brightness-110"
+  }, */
   {
-    src: "/images/E-2.jpg",
-    alt: "Drone inspeccionando terreno",
-    position: "object-bottom",
+    src: "/images/mosaico-f.png",
+    alt: "Mosaico fotogramétrico",
+    position: "!object-center",
+    fit: "!object-contain",
+    bg: "bg-black"
+  },
+  {
+    src: "/images/mosaico-02.png",
+    alt: "Detalle de mosaico fotogramétrico",
+    position: "object-center",
+  },
+  {
+    src: "/images/capilla.png",
+    alt: "Capilla histórica",
+    position: "object-[center_60%]",
+    fit: "object-cover",
+    bg: "bg-black/90"
   },
   {
     src: "/images/nopales-cielo.jpg",
@@ -53,7 +84,9 @@ export function HeroSection() {
   // Auto-play slider
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % heroImages.length)
+      setCurrentIndex((prev) => {
+        return prev === heroImages.length - 1 ? 0 : prev + 1
+      })
     }, 6000) // Change every 6 seconds
     return () => clearInterval(timer)
   }, [])
@@ -103,14 +136,14 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden rounded-[32px]">
+    <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden rounded-[32px] bg-black">
       {/* LCP Optimization: Static First Image (Rendered immediately by server) */}
-      <div className="absolute inset-0 z-0">
+      <div className={`absolute inset-0 z-0 ${heroImages[0].bg || ""} ${currentIndex === 0 ? "opacity-100" : "opacity-0"} transition-opacity duration-500`}>
         <Image
           src={heroImages[0].src}
           alt={heroImages[0].alt}
           fill
-          className={`object-cover ${heroImages[0].position || "object-center"}`}
+          className={`${heroImages[0].fit || "object-cover"} ${heroImages[0].position || "object-center"} ${heroImages[0].className || ""}`}
           priority
           loading="eager"
           fetchPriority="high"
@@ -127,13 +160,13 @@ export function HeroSection() {
             animate={{ opacity: 1, zIndex: 10 }}
             exit={{ opacity: 1, zIndex: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute inset-0"
+            className={`absolute inset-0 ${heroImages[currentIndex].bg || ""}`}
           >
             <Image
               src={heroImages[currentIndex].src}
               alt={heroImages[currentIndex].alt}
               fill
-              className={`object-cover ${heroImages[currentIndex].position || "object-center"}`}
+              className={`${heroImages[currentIndex].fit || "object-cover"} ${heroImages[currentIndex].position || "object-center"} ${heroImages[currentIndex].className || ""}`}
               loading="eager"
             />
           </motion.div>
