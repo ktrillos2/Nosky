@@ -1,7 +1,8 @@
 import { type StructureResolver } from 'sanity/structure'
+import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure: StructureResolver = (S) =>
+export const structure: StructureResolver = (S, context) =>
     S.list()
         .title('Content')
         .items([
@@ -25,8 +26,12 @@ export const structure: StructureResolver = (S) =>
                         .schemaType('servicesSection')
                         .documentId('servicesSection')
                 ),
-            S.documentTypeListItem('service')
-                .title('Lista de Servicios'),
+            orderableDocumentListDeskItem({
+                type: 'service',
+                title: 'Lista de Servicios (Ordenable)',
+                S,
+                context
+            }),
 
             // Project Gallery Group
             S.divider(),
@@ -38,8 +43,12 @@ export const structure: StructureResolver = (S) =>
                         .schemaType('projectGallery')
                         .documentId('projectGallery')
                 ),
-            S.documentTypeListItem('project')
-                .title('Lista de Proyectos'),
+            orderableDocumentListDeskItem({
+                type: 'project',
+                title: 'Lista de Proyectos (Ordenable)',
+                S,
+                context
+            }),
 
             S.divider(),
             S.listItem()
@@ -63,9 +72,12 @@ export const structure: StructureResolver = (S) =>
                         .schemaType('portfolioSection')
                         .documentId('portfolioSection')
                 ),
-            S.documentTypeListItem('portfolioItem')
-                .title('Items del Portafolio')
-                .schemaType('portfolioItem'),
+            orderableDocumentListDeskItem({
+                type: 'portfolioItem',
+                title: 'Items del Portafolio (Ordenable)',
+                S,
+                context
+            }),
 
             S.divider(),
             S.listItem()

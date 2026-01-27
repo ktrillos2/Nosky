@@ -1,10 +1,11 @@
-
 import { defineField, defineType } from 'sanity'
+import { Plane, ScanLine, Box, Settings, Cpu, Cloud, Tag } from 'lucide-react'
 
 export default defineType({
     name: 'technologyCategory',
     title: 'Categoría de Tecnología',
     type: 'document',
+    icon: Tag as any,
     fields: [
         defineField({
             name: 'title',
@@ -40,5 +41,26 @@ export default defineType({
             type: 'number',
 
         })
-    ]
+    ],
+    preview: {
+        select: {
+            title: 'title',
+            iconName: 'icon'
+        },
+        prepare({ title, iconName }) {
+            const icons: Record<string, any> = {
+                Plane,
+                ScanLine,
+                Box,
+                Settings,
+                Cpu,
+                Cloud
+            }
+
+            return {
+                title,
+                media: icons[iconName as string] || Tag
+            }
+        }
+    }
 })

@@ -83,9 +83,8 @@ async function seedGlobalSettings() {
         footerText: 'Expertos en captura y procesamiento de datos geoespaciales para ingeniería, arquitectura y construcción.',
         footerCopyright: 'Todos los derechos reservados.',
         socialLinks: [
-            { _key: 'soc_1', platform: 'LinkedIn', url: 'https://linkedin.com' },
-            { _key: 'soc_2', platform: 'Instagram', url: 'https://instagram.com' },
-            { _key: 'soc_3', platform: 'Facebook', url: 'https://facebook.com' },
+            { _key: 'soc_1', platform: 'Instagram', url: 'https://www.instagram.com/noskitectura?igsh=MWJkMmptY2poZWwzMg%3D%3D&utm_source=qr' },
+            { _key: 'soc_2', platform: 'TikTok', url: 'https://www.tiktok.com/@noskitectura?_r=1&_t=ZS-93QUDIKLPTI' },
         ]
     }
 

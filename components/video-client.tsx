@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Play } from "lucide-react"
 
@@ -14,13 +14,18 @@ export function VideoClient({ data }: { data: any }) {
         }
     }, [])
 
+    const [videoError, setVideoError] = useState<string | null>(null)
+
     // Priority: Sanity Video -> External URL -> Local Fallback
     const videoSrc = data?.videoUrl || data?.externalVideoUrl || "/images/video-maqueta.MOV"
+
+    console.log("[VideoDebug] Data:", data)
+    console.log("[VideoDebug] Source:", videoSrc)
 
     return (
         <section className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-4 lg:px-8">
-                <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl group">
+                <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl group bg-gray-900">
                     <video
                         ref={videoRef}
                         src={videoSrc}
@@ -29,7 +34,22 @@ export function VideoClient({ data }: { data: any }) {
                         muted
                         playsInline
                         autoPlay
+                        onError={(e) => {
+                            const err = e.currentTarget.error;
+                            console.error("[VideoDebug] Video Error:", err);
+                            setVideoError(`Video Error: ${err?.message || "Playback failed"} (Code: ${err?.code})`);
+                        }}
                     />
+
+                    {videoError && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/80 text-white z-20">
+                            <div className="text-center p-4">
+                                <p className="text-xl font-bold text-red-500 mb-2">Video Playback Error</p>
+                                <p className="font-mono text-sm">{videoError}</p>
+                                <p className="text-sm mt-4 text-gray-400">Try converting the video to MP4 format.</p>
+                            </div>
+                        </div>
+                    )}
 
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
 

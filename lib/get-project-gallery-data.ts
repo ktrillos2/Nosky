@@ -6,10 +6,9 @@ export async function getProjectGalleryData() {
     subtitle
   }`
 
-  const projectsQuery = `*[_type == "project"] | order(_createdAt asc) {
+  const projectsQuery = `*[_type == "project"] | order(orderRank asc) {
     title,
     alt,
-    className,
     image {
       asset->{
         url
@@ -25,8 +24,7 @@ export async function getProjectGalleryData() {
   // Transform to match component interface
   const images = projectsRaw.map((p: any) => ({
     src: p.image?.asset?.url || "",
-    alt: p.alt || p.title,
-    className: p.className
+    alt: p.alt || p.title
   }))
 
   return {

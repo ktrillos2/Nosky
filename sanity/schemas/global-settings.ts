@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, Github, Link as LinkIcon, Home, Briefcase, Images, Cpu, Mail, Video } from 'lucide-react'
 
 export default defineType({
     name: 'globalSettings',
@@ -45,7 +46,37 @@ export default defineType({
                     fields: [
                         { name: 'label', type: 'string', title: 'Etiqueta' },
                         { name: 'link', type: 'string', title: 'Enlace' },
-                    ]
+                    ],
+                    preview: {
+                        select: {
+                            title: 'label',
+                            subtitle: 'link'
+                        },
+                        prepare({ title, subtitle }) {
+                            const icons: Record<string, any> = {
+                                Inicio: Home,
+                                Home: Home,
+                                Servicios: Briefcase,
+                                Services: Briefcase,
+                                Portafolio: Images,
+                                Portfolio: Images,
+                                Proyectos: Images,
+                                Tecnologia: Cpu,
+                                Tecnología: Cpu,
+                                Technology: Cpu,
+                                Contacto: Mail,
+                                Contact: Mail
+                            }
+
+                            const key = Object.keys(icons).find(k => k.toLowerCase() === (title || '').toLowerCase())
+
+                            return {
+                                title,
+                                subtitle,
+                                media: key ? icons[key] : LinkIcon
+                            }
+                        }
+                    }
                 }
             ]
         }),
@@ -90,7 +121,37 @@ export default defineType({
                     fields: [
                         { name: 'platform', type: 'string', title: 'Plataforma' },
                         { name: 'url', type: 'url', title: 'URL del Perfil' },
-                    ]
+                    ],
+                    preview: {
+                        select: {
+                            title: 'platform',
+                            subtitle: 'url'
+                        },
+                        prepare({ title, subtitle }) {
+                            const icons: Record<string, any> = {
+                                Facebook,
+                                Instagram,
+                                Linkedin,
+                                LinkedIn: Linkedin,
+                                Twitter,
+                                X: Twitter,
+                                Youtube,
+                                YouTube: Youtube,
+                                Github,
+                                TikTok: Video,
+                                Tiktok: Video
+                            }
+
+                            // Normalize title for lookup (case insensitive)
+                            const key = Object.keys(icons).find(k => k.toLowerCase() === (title || '').toLowerCase())
+
+                            return {
+                                title,
+                                subtitle,
+                                media: key ? icons[key] : LinkIcon
+                            }
+                        }
+                    }
                 }
             ]
         }),

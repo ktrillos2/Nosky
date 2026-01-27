@@ -8,7 +8,7 @@ export async function getServicesData() {
 
   // Fetch all service documents, ordered by creation time or a specific field if we had one. 
   // For now, default order is fine or we can sort by _createdAt asc.
-  const servicesQuery = `*[_type == "service"] | order(_createdAt asc) {
+  const servicesQuery = `*[_type == "service"] | order(orderRank asc) {
     title,
     description,
     icon,
@@ -18,9 +18,9 @@ export async function getServicesData() {
         url
       }
     },
-    conclusion,
     imagePosition,
-    imageFit
+    imageFit,
+    conclusion
   }`
 
   const [config, servicesRaw] = await Promise.all([

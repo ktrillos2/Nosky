@@ -34,26 +34,9 @@ export default defineType({
                             title: 'Descripción de la Imagen',
                             type: 'string',
                         }),
-                        defineField({
-                            name: 'position',
-                            title: 'Alineación de la Imagen',
-                            type: 'string',
 
-                            initialValue: 'object-center'
-                        }),
-                        defineField({
-                            name: 'fit',
-                            title: 'Estilo de Ajuste',
-                            type: 'string',
 
-                            initialValue: 'object-cover'
-                        }),
-                        defineField({
-                            name: 'overlayColor',
-                            title: 'Nivel de Oscuridad (Fondo)',
-                            type: 'string',
 
-                        }),
                     ]
                 }
             ]

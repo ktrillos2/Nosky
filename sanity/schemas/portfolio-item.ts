@@ -1,16 +1,17 @@
 
 import { defineField, defineType } from 'sanity'
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
 
 export default defineType({
     name: 'portfolioItem',
     title: 'Portfolio Item',
     type: 'document',
+    orderings: [orderRankOrdering],
     fields: [
         defineField({
             name: 'title',
             title: 'Project Title',
             type: 'string',
-            validation: Rule => Rule.required()
         }),
         defineField({
             name: 'category',
@@ -38,12 +39,7 @@ export default defineType({
                     title: 'Descripción de la Imagen (Texto Alternativo)',
                     type: 'string'
                 }),
-                defineField({
-                    name: 'className',
-                    title: 'Alineación de la Imagen',
-                    type: 'string',
 
-                })
             ],
             validation: Rule => Rule.required()
         }),
@@ -56,10 +52,7 @@ export default defineType({
                 layout: 'tags'
             }
         }),
-        defineField({
-            name: 'order',
-            title: 'Display Order',
-            type: 'number'
-        })
+
+        orderRankField({ type: 'portfolioItem' })
     ]
 })
