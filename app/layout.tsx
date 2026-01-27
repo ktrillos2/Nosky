@@ -7,30 +7,35 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
-export const metadata: Metadata = {
-  title: "NOSKY | Captura, Digitalización y Documentación Aérea y Terrestre",
-  description:
-    "Especialistas en topografía de precisión, fotogrametría con drones, escaneo LiDAR aéreo y terrestre, y modelado BIM/3D. Transformamos la realidad en datos precisos.",
-  keywords: [
-    "LiDAR",
-    "fotogrametría",
-    "drones",
-    "topografía",
-    "modelado 3D",
-    "BIM",
-    "nube de puntos",
-    "escaneo láser",
-    "México",
-  ],
-  authors: [{ name: "NOSKY" }],
-  openGraph: {
-    title: "NOSKY | Captura, Digitalización y Documentación Aérea y Terrestre",
-    description:
-      "Especialistas en topografía de precisión, fotogrametría con drones, escaneo LiDAR aéreo y terrestre, y modelado BIM/3D.",
-    type: "website",
-    locale: "es_MX",
-  },
-  generator: 'v0.app'
+import { getGlobalData } from "@/lib/get-global-data"
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getGlobalData()
+
+  return {
+    title: settings?.companyName ? `${settings.companyName} | Captura, Digitalización y Documentación Aérea y Terrestre` : "NOSKY | Captura, Digitalización y Documentación Aérea y Terrestre",
+    description: settings?.footerText || "Especialistas en topografía de precisión, fotogrametría con drones, escaneo LiDAR aéreo y terrestre, y modelado BIM/3D. Transformamos la realidad en datos precisos.",
+    keywords: [
+      "LiDAR",
+      "fotogrametría",
+      "drones",
+      "topografía",
+      "modelado 3D",
+      "BIM",
+      "nube de puntos",
+      "escaneo láser",
+      "México",
+    ],
+    authors: [{ name: settings?.companyName || "NOSKY" }],
+    openGraph: {
+      title: settings?.companyName ? `${settings.companyName} | Captura, Digitalización y Documentación Aérea y Terrestre` : "NOSKY | Captura, Digitalización y Documentación Aérea y Terrestre",
+      description: settings?.footerText || "Especialistas en topografía de precisión, fotogrametría con drones, escaneo LiDAR aéreo y terrestre, y modelado BIM/3D.",
+      type: "website",
+      locale: "es_MX",
+    },
+    generator: 'v0.app',
+    metadataBase: new URL("https://noskygroup.com"),
+  }
 }
 
 export const viewport: Viewport = {

@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
+import { getGlobalData } from "@/lib/get-global-data"
 
 const VideoSection = dynamic(() => import("@/components/video-section").then(mod => mod.VideoSection), { ssr: true })
 const ServicesSection = dynamic(() => import("@/components/services-section").then(mod => mod.ServicesSection), { ssr: true })
@@ -12,7 +13,9 @@ const ContactSection = dynamic(() => import("@/components/contact-section").then
 const Footer = dynamic(() => import("@/components/footer").then(mod => mod.Footer), { ssr: true })
 const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(mod => mod.WhatsAppButton))
 
-export default function HomePage() {
+export default async function HomePage() {
+  const globalData = await getGlobalData()
+
   return (
     <main className="min-h-screen bg-neutral-950 p-4 space-y-4 md:p-6 md:space-y-6">
       <Navbar />
@@ -25,7 +28,7 @@ export default function HomePage() {
       <ClientsSection />
       <ContactSection />
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton phone={globalData?.whatsapp} />
     </main>
   )
 }

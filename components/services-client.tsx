@@ -1,0 +1,272 @@
+"use client"
+
+import { useRef } from "react"
+import { motion } from "framer-motion"
+import { Scan, Camera, Compass, Box, FileText, ArrowRight, LucideIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import Image from "next/image"
+
+const iconMap: Record<string, LucideIcon> = {
+  Scan,
+  Camera,
+  Compass,
+  Box,
+  FileText
+}
+
+interface Service {
+  title: string
+  description: string
+  icon: string // Expecting string key like "Scan"
+  features: string[]
+  image: string
+  conclusion?: string
+  imagePosition?: string
+  imageFit?: string
+}
+
+interface ServicesData {
+  title: string
+  subtitle: string
+  services: Service[]
+}
+
+const defaultServices: Service[] = [
+  {
+    icon: "Scan",
+    title: "LiDAR Aéreo",
+    description: "El LiDAR aéreo es una tecnología de captura remota de alta precisión que utiliza pulsos láser emitidos desde drones. Permite obtener información detallada del relieve, incluso en zonas con vegetación densa, siendo una herramienta clave para topografía, ingeniería, agricultura y conservación del patrimonio histórico.",
+    features: [
+      "Generación de nubes de puntos 3D georreferenciadas",
+      "Modelos Digitales del Terreno (MDT) y de Superficie (MDS)",
+      "Curvas de nivel y análisis de pendientes",
+      "Cálculo de volúmenes y superficies",
+      "Cartografía de alta precisión",
+      "Análisis del terreno bajo cobertura vegetal",
+    ],
+    image: "/images/Dronsote.jpg",
+    conclusion: "El uso de LiDAR aéreo permite cubrir grandes extensiones en menor tiempo, con alta precisión y mínima intervención en campo.",
+    imagePosition: "object-[center_77%] brightness-130",
+  },
+  {
+    icon: "Scan",
+    title: "Escaneo 3D",
+    description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
+    features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
+    image: "/images/D-1.png",
+    imageFit: "object-contain",
+  },
+  {
+    icon: "Camera",
+    title: "Fotogrametría",
+    description: "Mediante Vehículos Aéreos No Tripulados (VANT) equipados con cámaras de alta resolución, realizamos la captura fotográfica necesaria para documentar, ilustrar e inspeccionar de forma precisa cualquier sitio o elemento de interés. Con esta tecnología obtenemos:",
+    features: [
+      "Ortomosaicos de alta precisión",
+      "Modelos Digitales de Elevación (MDE)",
+      "Curvas de nivel",
+      "Mapas termográficos",
+      "Modelos 3D y nubes de puntos",
+      "Cálculo de volúmenes y superficies",
+      "Inspección visual de áreas de difícil acceso",
+    ],
+    image: "/images/E-2.jpg",
+    conclusion: "Todo esto permite cubrir grandes superficies en muy poco tiempo, con alta precisión y a un costo significativamente menor en comparación con métodos tradicionales.",
+    imagePosition: "object-[center_95%] brightness-130",
+  },
+  {
+    icon: "Compass",
+    title: "Topografía de Precisión",
+    description: "Realizamos la medición detallada de terrenos para el conocimiento exacto de dimensiones, superficies y desniveles, proporcionando una referencia confiable para proyectos de construcción, regularización y documentación legal. Entregamos datos topográficos precisos y verificables, fundamentales para la planificación, diseño y ejecución de obra, así como para su correcta descripción técnica en trámites y documentos oficiales.",
+    features: [
+      "Planimetría y altimetría",
+      "Georreferenciación (UTM)",
+      "Curvas de nivel",
+      "Amojonamiento",
+      "Levantamientos topográficos con estación total y GNSS",
+      "Cálculo de áreas, perímetros y volúmenes",
+      "Perfiles longitudinales y transversales del terreno",
+    ],
+    image: "/images/IMG_7066.JPG",
+    conclusion: "Este enfoque garantiza precisión, claridad y respaldo técnico en cada proyecto.",
+  },
+  {
+    icon: "Box",
+    title: "Modelado BIM",
+    description: "Desarrollamos modelos inteligentes BIM orientados a la gestión eficiente de edificaciones e infraestructuras, integrando información geométrica y técnica para todas las etapas del proyecto. Creamos modelos BIM desde LOD 100 hasta LOD 400, así como As-Built, garantizando coherencia entre el diseño, la construcción y la operación. Nuestros servicios incluyen:",
+    features: [
+      "LOD 100 – Modelado conceptual",
+      "LOD 200 – Modelado esquemático",
+      "LOD 300 – Modelado de diseño y coordinación",
+      "LOD 400 – Modelado para construcción",
+      "Documentación As-Built",
+      "Extracción de planos y cuantificaciones",
+      "Integración con levantamientos topográficos, Arquitectonicos y Estructurales, nubes de puntos y fotogrametría",
+    ],
+    image: "/images/mosaico-f.png",
+    conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
+    imageFit: "object-contain",
+  },
+  {
+    icon: "FileText",
+    title: "Consultoría técnica basada en datos",
+    description: "Brindamos consultoría técnica especializada enfocada en la toma de decisiones basada en datos, integrando información obtenida mediante levantamientos topográficos, captura aérea, modelado 3D, fotogrametría y BIM. Nuestro enfoque permite analizar, interpretar y transformar los datos técnicos en soluciones claras y estratégicas para proyectos de topografía, arquitectura y conservación del patrimonio histórico, reduciendo riesgos y optimizando recursos. Nuestros servicios incluyen:",
+    features: [
+      "Análisis y validación de datos técnicos",
+      "Interpretación de nubes de puntos, modelos 3D y ortomosaicos",
+      "Asesoría para selección de metodologías y tecnologías de captura",
+      "Informes técnicos para soporte de decisiones, proyectos y trámites",
+      "Acompañamiento técnico durante la planeación y ejecución del proyecto",
+    ],
+    image: "/images/IMG-00045.jpeg",
+    conclusion: "La consultoría técnica garantiza decisiones informadas, mayor control del proyecto y respaldo técnico sólido en cada etapa del proceso.",
+  },
+]
+
+export function ServicesClient({ data }: { data: ServicesData | null }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const services = (data?.services && data.services.length > 0) ? data.services : defaultServices
+  const title = data?.title || "Nuestras Soluciones"
+  const subtitle = data?.subtitle || "Tecnología de Vanguardia aplicada a la captura y procesamiento de datos geoespaciales"
+
+  return (
+    <section id="servicios" className="py-24 bg-card relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-800/50" />
+
+      <div className="container px-4 md:px-6 relative z-10">
+        {/* Header Section */}
+        <div className="max-w-4xl mx-auto mb-20 text-center">
+          <motion.div
+            initial={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+              {title}
+            </h2>
+            <h3 className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              {subtitle}
+            </h3>
+
+            {/* Key Points Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left mt-12 bg-background/40 backdrop-blur-sm p-6 rounded-2xl border border-primary/10">
+              <div className="flex flex-col gap-2">
+                <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-2">
+                  <Scan className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground">Tecnología de Punta</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">Equipos de última generación para capturas aéreas y terrestres de máxima fidelidad.</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-2">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground">Datos Accionables</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">Transformamos nubes de puntos en información estratégica para tu proyecto.</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-2">
+                  <Compass className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground">Cobertura Total</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">Soluciones integrales desde el levantamiento inicial hasta el modelado final.</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Services Zig-Zag Layout */}
+        <div ref={containerRef} className="flex flex-col gap-24 lg:gap-32">
+          {services.map((service, index) => {
+            const IconComponent = iconMap[service.icon] || Scan
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 1, y: 0 }}
+                className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-8 lg:gap-16 items-center`}
+              >
+                {/* Image Section */}
+                <div className="w-full lg:w-1/2 relative group">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-2xl border border-white/10">
+                    {service.image && (
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className={`transition-transform duration-700 group-hover:scale-105 ${service.imageFit || "object-cover"} ${service.imagePosition || "object-center"}`}
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+
+                    {/* Floating Icon Badge */}
+                    <div className={`absolute ${index % 2 === 0 ? "bottom-6 left-6" : "bottom-6 right-6"} z-10`}>
+                      <div className="h-16 w-16 rounded-2xl bg-background/95 backdrop-blur-md border border-primary/20 shadow-xl flex items-center justify-center">
+                        <IconComponent className="w-8 h-8 text-primary" />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Decorative Pattern Behind */}
+                  <div className={`absolute -z-10 top-1/2 -translate-y-1/2 ${index % 2 === 0 ? "-left-12" : "-right-12"} w-64 h-64 bg-primary/20 blur-[100px] rounded-full opacity-50`} />
+                </div>
+
+                {/* Content Section */}
+                <div className="w-full lg:w-1/2 space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+                      {service.title}
+                    </h3>
+                    <div className="h-1 w-20 bg-primary rounded-full" />
+                  </div>
+
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  {/* Features List */}
+                  <ul className="space-y-3 pt-4">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {service.conclusion && (
+                    <div className="pt-6 relative">
+                      <div className="absolute left-0 top-6 bottom-0 w-1 bg-primary/30 rounded-full" />
+                      <p className="pl-4 text-base font-medium italic text-foreground/80">
+                        "{service.conclusion}"
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* CTA Footer */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-20"
+        >
+          <Button
+            asChild
+            size="lg"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 h-12 rounded-full shadow-lg shadow-accent/20 transition-all hover:scale-105"
+          >
+            <Link href="#contacto">
+              Hagamos equipo
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
