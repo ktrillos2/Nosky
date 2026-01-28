@@ -11,8 +11,14 @@ import { getGlobalData } from "@/lib/get-global-data"
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getGlobalData()
+  const logoSrc = settings?.logo?.asset?.url || "/images/A1 Logo Circular.png"
 
   return {
+    icons: {
+      icon: logoSrc,
+      shortcut: logoSrc,
+      apple: logoSrc,
+    },
     title: settings?.companyName ? `${settings.companyName} | Captura, Digitalización y Documentación Aérea y Terrestre` : "NOSKY | Captura, Digitalización y Documentación Aérea y Terrestre",
     description: settings?.footerText || "Especialistas en topografía de precisión, fotogrametría con drones, escaneo LiDAR aéreo y terrestre, y modelado BIM/3D. Transformamos la realidad en datos precisos.",
     keywords: [
