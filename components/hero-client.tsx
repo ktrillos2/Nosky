@@ -50,18 +50,16 @@ export function HeroClient({ data }: { data: HeroData | null }) {
         gsap.fromTo(
           ".gravity-hero",
           {
-            y: -150,
+            y: 50,
             opacity: 0,
-            rotate: () => Math.random() * 6 - 3,
           },
           {
             y: 0,
             opacity: 1,
-            rotate: 0,
-            duration: 1.5,
-            stagger: 0.3,
-            ease: "bounce.out",
-            delay: 0.5,
+            duration: 1.2, // Slightly faster/tighter
+            stagger: 0.2, // Tighter stagger
+            ease: "power3.out", // Smooth deceleration, no bounce
+            delay: 0.2,
           }
         )
       }, containerRef)

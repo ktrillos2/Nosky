@@ -17,7 +17,8 @@ export function ContactClient({ data }: { data: any }) {
     e.preventDefault()
     setIsSubmitting(true)
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const payload = Object.fromEntries(formData.entries())
 
     try {
@@ -38,7 +39,7 @@ export function ContactClient({ data }: { data: any }) {
       })
 
       // Reset form
-      e.currentTarget.reset()
+      form.reset()
     } catch (error: any) {
       toast.error("Error", {
         description: error.message || "Hubo un problema al enviar tu mensaje. Intenta de nuevo."

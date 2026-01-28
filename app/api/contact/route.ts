@@ -74,7 +74,7 @@ export async function POST(req: Request) {
     `;
 
     const data = await resend.emails.send({
-      from: 'onboarding@resend.dev', // Using default until domain is verified
+      from: 'NOSKY Website <onboarding@resend.dev>', // Using default until domain is verified
       to: ['j.alfonso.rosas.f@gmail.com'], // Primary destination
       subject: `Nuevo Proyecto: ${name} - ${service || 'General'}`,
       html: emailHtml,

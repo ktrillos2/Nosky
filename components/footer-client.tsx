@@ -17,10 +17,7 @@ const footerLinks = {
         { label: "Tecnología", href: "#tecnologia" },
         { label: "Contacto", href: "#contacto" },
     ],
-    legal: [
-        { label: "Aviso de Privacidad", href: "#" },
-        { label: "Términos y Condiciones", href: "#" },
-    ],
+
 }
 
 interface FooterClientProps {
@@ -46,7 +43,7 @@ export function FooterClient({ data }: FooterClientProps) {
     return (
         <footer className="bg-background border-t border-border rounded-[32px] overflow-hidden">
             <div className="container mx-auto px-4 lg:px-8 py-16">
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
                     {/* Brand - Logo actualizado */}
                     <div className="col-span-2 md:col-span-4 lg:col-span-2">
                         <Link href="#inicio" className="flex items-center gap-3 mb-4" aria-label="Ir al inicio">
@@ -94,19 +91,7 @@ export function FooterClient({ data }: FooterClientProps) {
                         </ul>
                     </div>
 
-                    {/* Legal */}
-                    <div>
-                        <h3 className="font-semibold text-foreground mb-4">Legal</h3>
-                        <ul className="space-y-2">
-                            {footerLinks.legal.map((link) => (
-                                <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+
                 </div>
             </div>
 
