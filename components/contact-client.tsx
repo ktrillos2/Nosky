@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, Instagram, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -7,8 +8,46 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
+import { toast } from "sonner"
 
 export function ContactClient({ data }: { data: any }) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    const formData = new FormData(e.currentTarget)
+    const payload = Object.fromEntries(formData.entries())
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar el mensaje')
+      }
+
+      toast.success("¡Mensaje enviado!", {
+        description: "Nos pondremos en contacto contigo pronto."
+      })
+
+      // Reset form
+      e.currentTarget.reset()
+    } catch (error: any) {
+      toast.error("Error", {
+        description: error.message || "Hubo un problema al enviar tu mensaje. Intenta de nuevo."
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const email = data?.email || "contacto@noskygroup.com"
   const phone = data?.phone || "55 4191 4393"
   const phone2 = data?.phone2
@@ -54,7 +93,7 @@ export function ContactClient({ data }: { data: any }) {
                 <CardDescription className="text-base">Completa el formulario y nos pondremos en contacto contigo.</CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-semibold text-foreground">
@@ -62,7 +101,9 @@ export function ContactClient({ data }: { data: any }) {
                       </label>
                       <Input
                         id="name"
+                        name="name"
                         placeholder="Tu nombre"
+                        required
                         className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 h-11"
                       />
                     </div>
@@ -72,6 +113,7 @@ export function ContactClient({ data }: { data: any }) {
                       </label>
                       <Input
                         id="company"
+                        name="company"
                         placeholder="Nombre de empresa"
                         className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 h-11"
                       />
@@ -83,7 +125,9 @@ export function ContactClient({ data }: { data: any }) {
                     </label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
+                      required
                       placeholder="tu@email.com"
                       className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 h-11"
                     />
@@ -94,16 +138,17 @@ export function ContactClient({ data }: { data: any }) {
                     </label>
                     <select
                       id="service"
+                      name="service"
                       className="w-full h-11 px-3 rounded-md bg-background/50 border border-border text-foreground focus:border-primary focus:ring-2 focus:ring-primary/50 focus:outline-none transition-all duration-300"
                     >
                       <option value="">Selecciona un servicio</option>
-                      <option value="topografia-precision">Topografía de precisión</option>
-                      <option value="fotogrametria">Fotogrametría</option>
-                      <option value="lidar-aereo">LíDAR aéreo</option>
-                      <option value="escaneo-3d">Escaneo 3D</option>
-                      <option value="modelado-bim">Modelado BIM</option>
-                      <option value="drones">Drones</option>
-                      <option value="documentacion-digital">Documentación Digital</option>
+                      <option value="Topografía de precisión">Topografía de precisión</option>
+                      <option value="Fotogrametría">Fotogrametría</option>
+                      <option value="LiDAR aéreo">LiDAR aéreo</option>
+                      <option value="Escaneo 3D">Escaneo 3D</option>
+                      <option value="Modelado BIM">Modelado BIM</option>
+                      <option value="Drones">Drones</option>
+                      <option value="Documentación Digital">Documentación Digital</option>
                     </select>
                   </div>
                   <div className="space-y-2">
@@ -112,6 +157,8 @@ export function ContactClient({ data }: { data: any }) {
                     </label>
                     <Textarea
                       id="message"
+                      name="message"
+                      required
                       placeholder="Cuéntanos sobre tu proyecto, ubicación y requerimientos específicos..."
                       rows={4}
                       className="bg-background/50 border-border focus:border-primary focus:ring-2 focus:ring-primary/50 resize-none transition-all duration-300"
@@ -119,10 +166,17 @@ export function ContactClient({ data }: { data: any }) {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold glow-accent shadow-lg hover:shadow-xl transition-all duration-300 h-12"
+                    disabled={isSubmitting}
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold glow-accent shadow-lg hover:shadow-xl transition-all duration-300 h-12 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    <Send className="w-4 h-4 mr-2" />
-                    Enviar
+                    {isSubmitting ? (
+                      <>enviando...</>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Enviar
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
