@@ -5,19 +5,19 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-    try {
-        const body = await req.json();
-        const { name, company, email, service, message } = body;
+  try {
+    const body = await req.json();
+    const { name, company, email, service, message } = body;
 
-        // Basic validation
-        if (!name || !email || !message) {
-            return NextResponse.json(
-                { error: 'Faltan campos requeridos' },
-                { status: 400 }
-            );
-        }
+    // Basic validation
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: 'Faltan campos requeridos' },
+        { status: 400 }
+      );
+    }
 
-        const emailHtml = `
+    const emailHtml = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -73,25 +73,25 @@ export async function POST(req: Request) {
       </html>
     `;
 
-        const data = await resend.emails.send({
-            from: 'NOSKY Website <onboarding@resend.dev>', // Using default until domain is verified, or use provided domain if available.
-            to: ['fergi@noskygroup.com'], // Primary destination
-            subject: `Nuevo Proyecto: ${name} - ${service || 'General'}`,
-            html: emailHtml,
-            replyTo: email,
-        });
+    const data = await resend.emails.send({
+      from: 'onboarding@resend.dev', // Using default until domain is verified
+      to: ['j.alfonso.rosas.f@gmail.com'], // Primary destination
+      subject: `Nuevo Proyecto: ${name} - ${service || 'General'}`,
+      html: emailHtml,
+      replyTo: email,
+    });
 
-        if (data.error) {
-            console.error("Resend Error:", data.error);
-            return NextResponse.json({ error: data.error.message }, { status: 500 });
-        }
-
-        return NextResponse.json({ success: true, data });
-    } catch (error) {
-        console.error('Error sending email:', error);
-        return NextResponse.json(
-            { error: 'Error interno del servidor' },
-            { status: 500 }
-        );
+    if (data.error) {
+      console.error("Resend Error:", data.error);
+      return NextResponse.json({ error: data.error.message }, { status: 500 });
     }
+
+    return NextResponse.json({ success: true, data });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return NextResponse.json(
+      { error: 'Error interno del servidor' },
+      { status: 500 }
+    );
+  }
 }
