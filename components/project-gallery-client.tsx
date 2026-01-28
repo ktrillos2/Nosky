@@ -24,21 +24,21 @@ interface ProjectGalleryData {
 
 const defaultGalleryImages = [
     {
-        src: "/images/portfolio-landscape.jpg",
+        src: "/images/portfolio-landscape.webp",
         alt: "Vista panorámica de proyecto topográfico en campo",
         className: "object-[center_35%]",
     },
     {
-        src: "/images/carrusel-1.JPG",
+        src: "/images/carrusel-1.webp",
         alt: "Proyecto de topografía y medición en campo",
         className: "object-[center_35%]",
     },
     {
-        src: "/images/carrusel-2.JPG",
+        src: "/images/carrusel-2.webp",
         alt: "Equipo de trabajo en levantamiento topográfico",
     },
     {
-        src: "/images/IMG-19018.png",
+        src: "/images/IMG-19018.webp",
         alt: "Captura de datos geoespaciales con tecnología avanzada",
     },
 ]

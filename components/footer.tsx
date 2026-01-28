@@ -11,7 +11,7 @@ export async function Footer() {
   ]
   const footerData = {
     companyName: settings?.companyName || "NOSKY",
-    logoUrl: settings?.logo?.asset?.url || "/images/A1 Logo Circular.png",
+    logoUrl: settings?.logo?.asset?.url || "/images/A1 Logo Circular.webp",
     footerText: settings?.footerText || `Captura, Digitalización y Documentación\nAérea y Terrestre\nTransformamos espacios físicos en datos precisos`,
     socialLinks: settings?.socialLinks || defaultSocials,
     menuItems: settings?.menuItems || []

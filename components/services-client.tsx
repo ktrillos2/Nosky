@@ -45,7 +45,7 @@ const defaultServices: Service[] = [
       "Cartografía de alta precisión",
       "Análisis del terreno bajo cobertura vegetal",
     ],
-    image: "/images/Dronsote.jpg",
+    image: "/images/Dronsote.webp",
     conclusion: "El uso de LiDAR aéreo permite cubrir grandes extensiones en menor tiempo, con alta precisión y mínima intervención en campo.",
     imagePosition: "object-[center_77%] brightness-130",
   },
@@ -54,7 +54,7 @@ const defaultServices: Service[] = [
     title: "Escaneo 3D",
     description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
-    image: "/images/D-1.png",
+    image: "/images/D-1.webp",
     imageFit: "object-contain",
   },
   {
@@ -70,7 +70,7 @@ const defaultServices: Service[] = [
       "Cálculo de volúmenes y superficies",
       "Inspección visual de áreas de difícil acceso",
     ],
-    image: "/images/E-2.jpg",
+    image: "/images/E-2.webp",
     conclusion: "Todo esto permite cubrir grandes superficies en muy poco tiempo, con alta precisión y a un costo significativamente menor en comparación con métodos tradicionales.",
     imagePosition: "object-[center_95%] brightness-130",
   },
@@ -87,7 +87,7 @@ const defaultServices: Service[] = [
       "Cálculo de áreas, perímetros y volúmenes",
       "Perfiles longitudinales y transversales del terreno",
     ],
-    image: "/images/IMG_7066.JPG",
+    image: "/images/IMG_7066.webp",
     conclusion: "Este enfoque garantiza precisión, claridad y respaldo técnico en cada proyecto.",
   },
   {
@@ -103,7 +103,7 @@ const defaultServices: Service[] = [
       "Extracción de planos y cuantificaciones",
       "Integración con levantamientos topográficos, Arquitectonicos y Estructurales, nubes de puntos y fotogrametría",
     ],
-    image: "/images/mosaico-f.png",
+    image: "/images/mosaico-f.webp",
     conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
     imageFit: "object-contain",
   },
@@ -118,7 +118,7 @@ const defaultServices: Service[] = [
       "Informes técnicos para soporte de decisiones, proyectos y trámites",
       "Acompañamiento técnico durante la planeación y ejecución del proyecto",
     ],
-    image: "/images/IMG-00045.jpeg",
+    image: "/images/IMG-00045.webp",
     conclusion: "La consultoría técnica garantiza decisiones informadas, mayor control del proyecto y respaldo técnico sólido en cada etapa del proceso.",
   },
 ]
@@ -126,7 +126,17 @@ const defaultServices: Service[] = [
 export function ServicesClient({ data }: { data: ServicesData | null }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const services = (data?.services && data.services.length > 0) ? data.services : defaultServices
+  const rawServices = (data?.services && data.services.length > 0) ? data.services : defaultServices
+
+  // Force image fit for specific services regardless of source (Sanity or local)
+  // This ensures they are never cropped
+  const services = rawServices.map(service => {
+    if (service.title === "Escaneo 3D" || service.title === "Modelado BIM") {
+      return { ...service, imageFit: "object-contain" }
+    }
+    return service
+  })
+
   const title = data?.title || "Nuestras Soluciones"
   const subtitle = data?.subtitle || "Tecnología de Vanguardia aplicada a la captura y procesamiento de datos geoespaciales"
 

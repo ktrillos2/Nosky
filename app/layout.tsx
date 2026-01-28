@@ -11,7 +11,7 @@ import { getGlobalData } from "@/lib/get-global-data"
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getGlobalData()
-  const logoSrc = settings?.logo?.asset?.url || "/images/A1 Logo Circular.png"
+  const logoSrc = settings?.logo?.asset?.url || "/images/A1 Logo Circular.webp"
 
   return {
     icons: {

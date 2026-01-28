@@ -10,7 +10,7 @@ export async function Navbar() {
     { link: "#tecnologia", label: "Tecnología" },
     { link: "#contacto", label: "Contacto" },
   ]
-  const logoSrc = data?.logo?.asset?.url || "/images/A1 Logo Circular.png"
+  const logoSrc = data?.logo?.asset?.url || "/images/A1 Logo Circular.webp"
 
   return <NavbarClient settings={{ ...data, menuItems: navLinks, logoUrl: logoSrc }} />
 }
