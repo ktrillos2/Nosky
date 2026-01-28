@@ -66,22 +66,10 @@ export function HeroClient({ data }: { data: HeroData | null }) {
       return ctx
     }
 
-    let ctx: gsap.Context
-    if (document.readyState === "complete") {
-      ctx = initGSAP()
-    } else {
-      const handleLoad = () => {
-        ctx = initGSAP()
-      }
-      window.addEventListener("load", handleLoad)
-      return () => {
-        window.removeEventListener("load", handleLoad)
-        if (ctx) ctx.revert()
-      }
-    }
+    const ctx = initGSAP()
 
     return () => {
-      if (ctx) ctx.revert()
+      ctx.revert()
     }
   }, [])
 
@@ -143,9 +131,9 @@ export function HeroClient({ data }: { data: HeroData | null }) {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
-                ? "bg-primary w-8"
-                : "bg-white/50 hover:bg-white/80 w-1.5"
+              className={`h-3 rounded-full transition-all duration-300 mx-1 ${index === currentIndex
+                ? "bg-primary w-10"
+                : "bg-white/50 hover:bg-white/80 w-3"
                 }`}
               aria-label={`Ir a la imagen ${index + 1}`}
             />

@@ -16,11 +16,16 @@ export function VideoClient({ data }: { data: any }) {
 
     const [videoError, setVideoError] = useState<string | null>(null)
 
+    // Fallback URL
+    const FALLBACK_VIDEO = "/images/video-maqueta.MOV"
+
     // Priority: Sanity Video -> External URL -> Local Fallback
-    const videoSrc = data?.videoUrl || data?.externalVideoUrl || "/images/video-maqueta.MOV"
+    const initialSrc = data?.videoUrl || data?.externalVideoUrl || FALLBACK_VIDEO
+    const [currentSrc, setCurrentSrc] = useState(initialSrc)
 
     console.log("[VideoDebug] Data:", data)
-    console.log("[VideoDebug] Source:", videoSrc)
+    console.log("[VideoDebug] Initial Source:", initialSrc)
+    console.log("[VideoDebug] Current Source:", currentSrc)
 
     return (
         <section className="py-24 relative overflow-hidden">
@@ -28,7 +33,7 @@ export function VideoClient({ data }: { data: any }) {
                 <div className="relative rounded-2xl overflow-hidden aspect-video shadow-2xl group bg-gray-900">
                     <video
                         ref={videoRef}
-                        src={videoSrc}
+                        src={currentSrc}
                         className="w-full h-full object-cover"
                         loop
                         muted
@@ -37,6 +42,14 @@ export function VideoClient({ data }: { data: any }) {
                         onError={(e) => {
                             const err = e.currentTarget.error;
                             console.error("[VideoDebug] Video Error:", err);
+
+                            // If we aren't already using the fallback, try the fallback
+                            if (currentSrc !== FALLBACK_VIDEO) {
+                                console.log("[VideoDebug] Switching to fallback video");
+                                setCurrentSrc(FALLBACK_VIDEO);
+                                return; // Don't set error yet, let the fallback try to load
+                            }
+
                             setVideoError(`Video Error: ${err?.message || "Playback failed"} (Code: ${err?.code})`);
                         }}
                     />
@@ -65,9 +78,9 @@ export function VideoClient({ data }: { data: any }) {
                                 </div>
                                 <span className="text-sm font-medium tracking-wider uppercase">{data?.title || "Tecnología en Acción"}</span>
                             </div>
-                            <h3 className="text-2xl md:text-4xl font-bold max-w-lg">
+                            <h2 className="text-2xl md:text-4xl font-bold max-w-lg">
                                 {data?.description || "Visualiza nuestros procesos y resultados"}
-                            </h3>
+                            </h2>
                         </motion.div>
                     </div>
                 </div>
