@@ -55,7 +55,6 @@ const defaultServices: Service[] = [
     description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
     image: "/images/D-1.webp",
-    imageFit: "object-contain",
   },
   {
     icon: "Camera",
@@ -105,7 +104,6 @@ const defaultServices: Service[] = [
     ],
     image: "/images/mosaico-f.webp",
     conclusion: "El modelado BIM permite mejor toma de decisiones, reducción de errores en obra y una administración integral del proyecto.",
-    imageFit: "object-contain",
   },
   {
     icon: "FileText",
@@ -128,14 +126,8 @@ export function ServicesClient({ data }: { data: ServicesData | null }) {
 
   const rawServices = (data?.services && data.services.length > 0) ? data.services : defaultServices
 
-  // Force image fit for specific services regardless of source (Sanity or local)
-  // This ensures they are never cropped
-  const services = rawServices.map(service => {
-    if (service.title === "Escaneo 3D" || service.title === "Modelado BIM") {
-      return { ...service, imageFit: "object-contain" }
-    }
-    return service
-  }).sort((a, b) => {
+  // Sort services to match desired order
+  const services = rawServices.sort((a, b) => {
     const order = [
       "LiDAR Aéreo",
       "Escaneo 3D",

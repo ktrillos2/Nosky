@@ -90,7 +90,7 @@ export function HeroClient({ data }: { data: HeroData | null }) {
         </AnimatePresence>
 
         {/* Overlay gradients for readability */}
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/70" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background/90" />
       </div>
 

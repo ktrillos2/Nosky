@@ -98,7 +98,14 @@ export function FooterClient({ data }: FooterClientProps) {
             {/* Bottom Bar */}
             <div className="border-t border-border">
                 <div className="container mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
-                    <p className="text-xs text-muted-foreground">Desarrollado por K&T 🤍</p>
+                    <Link
+                        href="https://www.kytcode.lat"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                    >
+                        Desarrollado por K&T 🤍
+                    </Link>
                     <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
