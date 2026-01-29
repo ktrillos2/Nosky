@@ -135,6 +135,28 @@ export function ServicesClient({ data }: { data: ServicesData | null }) {
       return { ...service, imageFit: "object-contain" }
     }
     return service
+  }).sort((a, b) => {
+    const order = [
+      "LiDAR Aéreo",
+      "Escaneo 3D",
+      "Fotogrametría",
+      "Modelado BIM",
+      "Topografía de Precisión",
+      "Consultoría técnica basada en datos"
+    ]
+
+    const getIndex = (title: string) => {
+      const lowerTitle = title.toLowerCase()
+      if (lowerTitle.includes("lidar")) return 0
+      if (lowerTitle.includes("escaneo 3d")) return 1
+      if (lowerTitle.includes("fotogrametría") || lowerTitle.includes("fotogrametria")) return 2
+      if (lowerTitle.includes("bim")) return 3
+      if (lowerTitle.includes("topografía") || lowerTitle.includes("topografia")) return 4
+      if (lowerTitle.includes("consultoría") || lowerTitle.includes("consultoria")) return 5
+      return 99
+    }
+
+    return getIndex(a.title) - getIndex(b.title)
   })
 
   const title = data?.title || "Nuestras Soluciones"
