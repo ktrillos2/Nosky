@@ -7,6 +7,8 @@ export async function getHeroData() {
     carouselImages[]{
       "src": image.asset->url,
       alt,
+      position,
+      fit,
       overlayColor,
       _key
     }

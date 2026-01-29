@@ -91,8 +91,8 @@ export default function RootLayout({
           .text-primary { color: #f2f2f2; }
           @media (min-width: 768px) { h1 { font-size: 3.75rem; } .container { padding-left: 2rem; padding-right: 2rem; } }
           @media (min-width: 1024px) { h1 { font-size: 4.5rem; } }
-          /* Ocultar elementos que GSAP animará hasta que cargue */
-          .gravity-hero { opacity: 0; }
+          /* Ocultar elementos que GSAP animará hasta que cargue - REMOVED for LCP optimization */
+          /* .gravity-hero { opacity: 0; } */
         ` }} />
 
 

@@ -6,7 +6,6 @@ import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
-import gsap from "gsap"
 
 interface HeroImage {
   src: string
@@ -42,36 +41,6 @@ export function HeroClient({ data }: { data: HeroData | null }) {
     }, 6000) // Change every 6 seconds
     return () => clearInterval(timer)
   }, [hasImages, heroImages.length])
-
-  // GSAP Animation
-  useEffect(() => {
-    const initGSAP = () => {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".gravity-hero",
-          {
-            y: 50,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.2, // Slightly faster/tighter
-            stagger: 0.2, // Tighter stagger
-            ease: "power3.out", // Smooth deceleration, no bounce
-            delay: 0.2,
-          }
-        )
-      }, containerRef)
-      return ctx
-    }
-
-    const ctx = initGSAP()
-
-    return () => {
-      ctx.revert()
-    }
-  }, [])
 
   if (!data) return null
 
@@ -109,7 +78,11 @@ export function HeroClient({ data }: { data: HeroData | null }) {
                 src={heroImages[currentIndex].src}
                 alt={heroImages[currentIndex].alt}
                 fill
-                className={`${heroImages[currentIndex].fit || "object-cover"} ${heroImages[currentIndex].position || "object-center"} ${heroImages[currentIndex].className || ""}`}
+                className={`
+                  ${heroImages[currentIndex].alt === "Detalle de mosaico fotogramétrico" ? "object-contain md:object-cover" : (heroImages[currentIndex].fit || "object-cover")} 
+                  ${heroImages[currentIndex].position || "object-center"} 
+                  ${heroImages[currentIndex].className || ""}
+                `}
                 loading="eager"
               />
             </motion.div>
@@ -146,22 +119,31 @@ export function HeroClient({ data }: { data: HeroData | null }) {
         <div className="max-w-4xl mx-auto text-center">
 
           {/* Main Heading */}
-          <h1
-            className="gravity-hero text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance drop-shadow-2xl opacity-0"
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="gravity-hero text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance drop-shadow-2xl"
           >
             {data.title || <>Captura, Digitalización y <span className="text-primary text-glow drop-shadow-md">Documentación</span> Aérea y Terrestre</>}
-          </h1>
+          </motion.h1>
 
           {/* Subtitle */}
-          <p
-            className="gravity-hero text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 text-pretty drop-shadow-md font-medium opacity-0"
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+            className="gravity-hero text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 text-pretty drop-shadow-md font-medium"
           >
             {data.subtitle || "Transformamos espacios físicos en datos precisos mediante escaneo LiDAR, fotogrametría aérea y topografía de alta precisión. Soluciones integrales para ingeniería, arquitectura y construcción."}
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div
-            className="gravity-hero flex flex-col sm:flex-row gap-4 justify-center items-center mb-20 opacity-0"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            className="gravity-hero flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
           >
             <Button
               asChild
@@ -178,7 +160,7 @@ export function HeroClient({ data }: { data: HeroData | null }) {
             >
               <Link href="#servicios">Explorar Servicios</Link>
             </Button>
-          </div>
+          </motion.div>
         </div>
       </div>
 

@@ -1,7 +1,17 @@
 "use client"
 
+import { useState, useEffect } from "react"
+
 export function WhatsAppButton({ phone }: { phone?: string }) {
+    const [isMounted, setIsMounted] = useState(false)
     const phoneNumber = phone || "525541914393"
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if (!isMounted) return null
+
     return (
         <a
             href={`https://wa.me/${phoneNumber}`}
