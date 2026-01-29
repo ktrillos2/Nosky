@@ -34,6 +34,21 @@ export default defineType({
                             title: 'Descripción de la Imagen',
                             type: 'string',
                         }),
+                        defineField({
+                            name: 'position',
+                            title: 'Position',
+                            type: 'string',
+                        }),
+                        defineField({
+                            name: 'fit',
+                            title: 'Fit',
+                            type: 'string',
+                        }),
+                        defineField({
+                            name: 'overlayColor',
+                            title: 'Overlay Color',
+                            type: 'string',
+                        }),
 
 
 

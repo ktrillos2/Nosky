@@ -30,14 +30,14 @@ const TEXT_DATA = {
 }
 
 const IMAGES_DATA = [
-    { src: "hero-add-cielo.JPG", alt: "Vista aérea del cielo", position: "object-center" },
-    { src: "mosaico-02.png", alt: "Detalle de mosaico fotogramétrico", position: "object-center" },
-    { src: "capilla.png", alt: "Capilla histórica", position: "object-[center_60%]", fit: "object-cover", overlayColor: "bg-black/90" },
-    { src: "nopales-cielo.jpg", alt: "Paisaje de nopales bajo un cielo claro" },
-    { src: "hero-add-siembra.JPG", alt: "Campo de siembra y cultivo", position: "object-[center_30%]" },
-    { src: "hero-add-piedras.JPG", alt: "Terreno agreste y rocoso", position: "object-center" },
-    { src: "pastizaje-2.JPG", alt: "Vegetación y pastizales", position: "object-[center_30%]" },
-    { src: "hero-add-montaña.JPG", alt: "Vista de montaña y terreno", position: "object-[center_65%]" },
+    { src: "hero-add-cielo.webp", alt: "Vista aérea del cielo", position: "object-center" },
+    { src: "mosaico-02.webp", alt: "Detalle de mosaico fotogramétrico", position: "object-center" },
+    { src: "capilla.webp", alt: "Capilla histórica", position: "object-[center_60%]", fit: "object-cover", overlayColor: "bg-black/90" },
+    { src: "nopales-cielo.webp", alt: "Paisaje de nopales bajo un cielo claro" },
+    { src: "hero-add-siembra.webp", alt: "Campo de siembra y cultivo", position: "object-[center_30%]" },
+    { src: "hero-add-piedras.webp", alt: "Terreno agreste y rocoso", position: "object-center" },
+    { src: "pastizaje-2.webp", alt: "Vegetación y pastizales", position: "object-[center_30%]" },
+    { src: "hero-add-montaña.webp", alt: "Vista de montaña y terreno", position: "object-[center_65%]" },
 ]
 
 async function seed() {

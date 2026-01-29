@@ -54,7 +54,7 @@ const defaultServices: Service[] = [
     title: "Escaneo 3D",
     description: "Captura Digital precisa de entornos físicos para ingeniería y arquitectura y conservación histórica. Transformando espacios físicos en miles de puntos con coordenadas exactas y colores reales que recrean una edificación con precisión",
     features: ["Nubes de Puntos", "Modelos Digitales", "Precisión Milimétrica"],
-    image: "/images/D-1.webp",
+    image: "/images/D-1-new.png",
   },
   {
     icon: "Camera",
