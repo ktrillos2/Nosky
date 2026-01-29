@@ -11,7 +11,16 @@ gsap.registerPlugin(ScrollTrigger)
 export function PortfolioClient({ data }: { data: any }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const portfolioItems = data?.items || []
+  const rawItems = data?.items || []
+
+  // Custom overrides to fix mobile cropping issues instantly
+  const portfolioItems = rawItems.map((item: any) => {
+    if (item.title === "Vuelo LiDAR" && !item.imageClass) {
+      // Force focus on the bottom part (drone) if no class provided
+      return { ...item, imageClass: "object-[center_80%]" }
+    }
+    return item
+  })
 
   useEffect(() => {
     const initGSAP = () => {
@@ -96,7 +105,7 @@ export function PortfolioClient({ data }: { data: any }) {
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={`object-cover transition-transform duration-500 group-hover:scale-110 ${item.imageClass || ""}`}
+                  className={`object-cover transition-transform duration-500 group-hover:scale-110 ${item.imageClass || "object-center"}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 

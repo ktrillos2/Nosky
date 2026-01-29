@@ -14,6 +14,7 @@ export async function getPortfolioData() {
     category,
     description,
     "image": image.asset->url,
+    "imageClass": image.className,
     tech
   }`
 
